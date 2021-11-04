@@ -8,7 +8,8 @@ import { FaUserCheck , FaMapMarkedAlt , FaUserGraduate } from 'react-icons/fa'
 import { IoIosMail } from 'react-icons/io'
 import { BsFillTelephoneFill } from 'react-icons/bs'
 import { MdWork } from 'react-icons/md'
-import { AiFillCaretDown , AiFillCaretUp} from 'react-icons/ai'
+import { AiFillCaretDown , AiFillCaretUp , AiOutlineClose} from 'react-icons/ai'
+import { GiCheckMark } from 'react-icons/gi'
 
 
 
@@ -125,28 +126,33 @@ const ProfilUser = () => {
 
 
                 <div className='DemandeContainer'>
-                    <div className='DemandeHeader'>
-                        <span> Liste des Demande </span>
-                        {isOpen ? <AiFillCaretDown onClick={handleOpen}/> : <AiFillCaretUp onClick={handleOpen}/>}
+                    <div className='DemandeContainerHeader'>
+                        <span className='Title'> Liste des Demandes </span>
+                        {isOpen ? <AiFillCaretDown onClick={handleOpen} className='Icon'/> : <AiFillCaretUp onClick={handleOpen} className='Icon'/>}
                     </div>
-                    {isOpen ? <div>
-                        <p>zefzrgererherh</p>
-                        <p>zefzrgererherh</p>
-                        <p>zefzrgererherh</p>
-                        <p>zefzrgererherh</p>
-                        <p>zefzrgererherh</p>
-                        <p>zefzrgererherh</p>
-                        <p>zefzrgererherh</p>
-                        <p>zefzrgererherh</p>
-                        <p>zefzrgererherh</p>
-                        <p>zefzrgererherh</p>
-                        <p>zefzrgererherh</p>
-                        <p>zefzrgererherh</p>
-                        <p>zefzrgererherh</p>
-                        <p>zefzrgererherh</p>
-                        <p>zefzrgererherh</p>
-                    </div> : null}
+                    {isOpen ? <div className="DemandeContainerBody">
 
+                        <div className='DemandeContent'>
+
+                            <div className='DemandeContentHead'>
+                                <div>
+                                    <span className='HeadNom'>Hamza Amdouni</span>
+                                    <span className='HeadAdress'> - Hammam Lif</span>
+                                </div>
+                                <div>
+                                    <AiOutlineClose className='HeadRefuser'/>
+                                    <GiCheckMark className='HeadAccepter'/>
+                                </div>
+                            </div>
+
+                            <div className='DemandeContentBody'>
+                                <span className='BodyDate'> 26/12/1990</span>
+                                <span className='BodyDescription'> j'ai besoin d'une preparation demain</span>
+                            </div>
+
+                        </div>
+
+                    </div> : null}
                 </div>
 
 

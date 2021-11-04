@@ -80,9 +80,14 @@ export const logout = () =>{
 /******************************************************** agent  ********************************************************/ 
 
 export const currentAgent = (id) => async(dispatch) =>{
+    const config ={
+        headers : {
+            authorization : localStorage.getItem('token'),
+        },
+    }
     dispatch({type : LOAD_DATA})
 try {
-    let {data} = await axios.get(`api/agent/profil/${id}`)
+    let {data} = await axios.get(`api/agent/profil/${id}`,config)
     dispatch({type : CURRENT_AGENT , payload : data})
 } catch (error) {
     dispatch({type : FAIL_DATA , payload : error.response.data})

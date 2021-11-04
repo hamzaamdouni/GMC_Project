@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import ContactUs from '../Components/Home/ContactUs/ContactUs'
 import FirstSection from '../Components/Home/FirstSection/FirstSection'
 import Footer from '../Components/Home/Footer/Footer'
 import { homeObjOne, homeObjThree, homeObjTwo } from '../Components/Home/InfoSection/Data'
@@ -23,6 +24,7 @@ const Home = ({setLogOrReg}) => {
             <ServiceSection/>
             <InfoSection {...homeObjTwo} />
             <InfoSection {...homeObjThree} />
+            <ContactUs/>
             <Footer/>
         </div>
     )

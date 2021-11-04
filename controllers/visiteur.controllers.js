@@ -95,9 +95,7 @@ exports.getCategory = async (request,response) => {
         const {oneservice} = request.params
         const findService = await service.findOne({nom : oneservice})
         const { _id } = findService
-        console.log(findService)
-        const findCategorys = await category.find({id_service : findService._id})
-        console.log('category',findCategory)
+        const findCategorys = await category.find({id_service : _id})
         response.send({ msg: "get all Category" , findCategorys });
     } catch (error) {
         response.status(400).send({ msg: "can not get" });

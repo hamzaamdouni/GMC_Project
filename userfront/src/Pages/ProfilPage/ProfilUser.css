@@ -47,6 +47,7 @@ justify-content: center;
     display: flex;
     justify-content: center;
     padding: 15px;
+    text-align: center;
 }
 
 
@@ -113,7 +114,7 @@ justify-content: center;
     border: 0.1px solid #333333;
 }
 
-.DemandeHeader{
+.DemandeContainerHeader{
     width: 100%;
     height: 40px;
     display: flex;
@@ -122,14 +123,73 @@ justify-content: center;
     border-bottom: 0.5px solid #333333;
 }
 
+.DemandeContainerHeader .Title{
+    color: #EFA51F ;
+}
 
+.DemandeContainerHeader .Icon{
+    color: #EFA51F ;
+}
 
+.DemandeContainerHeader .Icon:hover{
+    color: #efa61f70 ;
+}
+
+.DemandeContainerBody{
+    width: 100%;
+    margin-top: 2%;
+}
+
+.DemandeContent{
+    background-color: #333333;
+    padding: 2%;
+    margin-bottom: 5px;
+    border-radius: 10px;
+    border: 0.5px solid #000;
+}
+
+.DemandeContent .DemandeContentHead{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 15px;
+    border-bottom: 0.5px solid #262626;
+}
+
+.DemandeContentHead .HeadNom{
+    color: #EFA51F;
+}
+
+.DemandeContentHead .HeadAdress{
+    font-size: 14px;
+}
+
+.HeadAccepter{
+    color:rgb(179, 179, 179);
+}
+.HeadRefuser{
+    color:rgb(179, 179, 179);
+    margin-right: 10px;
+}
+
+.DemandeContentBody{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.BodyDate{
+    margin-bottom: 10px;
+    font-size: 13px;
+}
 .CommentContainer{
     width: 100%;
     background-color: #262626;
     padding: 2%;
     margin-bottom: 5px;
     border: 0.1px solid #333333;
+    
 }
 
 

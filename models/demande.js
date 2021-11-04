@@ -25,6 +25,11 @@ const demandeSchema = new Schema({
     etat :  {
         type : String,
         required : true,
+        default :"Non Traité"
+    },
+    statut : {
+        type : String,
+        required : true,
         default :"En cour"
     },
 })

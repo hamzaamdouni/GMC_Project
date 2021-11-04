@@ -5,11 +5,12 @@ export const InfoContainer = styled.div`
 color : #fff;
 background: ${({lightBg}) => (lightBg ? '#f9f9f9' : '#010606')};
 padding-top: 100px;
-height: 89vh;
+height: 90vh;
 
 @media screen and (max-width : 768px){
     padding: 100% 0;
-    margin-top: 50px;
+    margin-top: 5px;
+    height: 50vh;
 }
 ` 
 
@@ -23,6 +24,9 @@ margin-right: auto;
 margin-left: auto;
 padding: 0 24px;
 justify-content: center;
+@media screen and (max-width : 768px){
+    min-height: 50vh;
+}
 `
 export const InfoRow = styled.div`
 display: grid;

@@ -11,7 +11,7 @@ const router = express.Router()
 router.post('/register', isAuth, isAgent ,RegisterAgentValidation(), Agentvalidation , RegisterAgent )
 
 // Afficher le compte authetifier du client
-router.get('/profil/:id'  , GetAgent)
+router.get('/profil/:id'  ,isAuth , GetAgent)
 
 // uppdate le compte authetifier du client
 router.put('/profil', isAuth , isAgent ,RegisterAgentValidation(), Agentvalidation, UpdateAgent)

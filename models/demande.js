@@ -20,7 +20,8 @@ const demandeSchema = new Schema({
     },
     date : {
         type : Date,
-        required : true
+        required : true,
+        default : Date.now()
     },
     etat :  {
         type : String,

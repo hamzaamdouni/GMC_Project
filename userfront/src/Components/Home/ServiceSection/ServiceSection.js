@@ -2,8 +2,6 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 
 import Icon1 from '../../../Assets/Visiteur/icon1.svg'
-import Icon2 from '../../../Assets/Visiteur/icon2.svg'
-import Icon3 from '../../../Assets/Visiteur/icon3.svg'
 
 import { ServicesCard, ServicesContainer, ServicesH1, ServicesH2, ServicesIcon, ServicesP, ServicesWrapper } from './ServiceSectionElements'
 

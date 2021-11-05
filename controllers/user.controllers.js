@@ -87,25 +87,31 @@ exports.getAllAgentCategory = async (request,response) => {
 // Afficher les demande 
 exports.GetRequestDemande = async (request,response) => {
   try {
-    const finddemande = await demande.find({id_user : request.user._id})
+    const token = request.headers['authorization']
+    const decoded = jwt.verify(token, process.env.SECRET_KEY);
+    const { _id } = decoded
+    const finddemande = await demande.find({id_user : _id})
     response.send({ msg : 'Get all request ' , finddemande})
   } catch (error) {
-    console.log(error);
-    response.status(400).send({ msg: "can not get Agents", error });
+    response.status(400).send({ msg: "can not send ", error });
   }
 };
 
 // Envoyer une demande de Demande
 exports.SendRequestDemande = async (request,response) => {
   try {
+    const token = request.headers['authorization']
+    const decoded = jwt.verify(token, process.env.SECRET_KEY);
+    const {_id} = decoded
     const { idagent } = request.params
-    const findAgent = await agent.findOne({ _id : idagent})
-    const newRequest = new demande({...request.body , id_user : request.user._id , id_agent : findAgent._id , id_category : findAgent.id_category})
+    const findAgent = await agent.findOne({ id_agent : idagent})
+    console.log('findagent', findAgent)
+    const newRequest = new demande({...request.body , id_user : _id , id_agent : findAgent.id_agent , id_category : findAgent.id_category})
     await newRequest.save()
     response.send({msg : 'register seccess' , demande : newRequest})
   } catch (error) {
     console.log(error);
-    response.status(400).send({ msg: "can not get Agents", error });
+    response.status(400).send({ msg: "can not register demande", error });
   }
 };
 

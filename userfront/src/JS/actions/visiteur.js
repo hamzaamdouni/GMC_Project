@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { CURRENT_AGENT, CURRENT_USER, FAIL_DATA, GET_CATEGORY, GET_ONE_CATEGORY, GET_ONE_SERVICE, GET_SERVICES, LOAD_DATA, LOGIN_USER, LOGOUT_USER, REGISTER_USER, SEND_RECLAMATION } from "../constants/visiteur"
+import { CURRENT_AGENT, CURRENT_USER, FAIL_DATA, GET_CATEGORY, GET_DEMANDE_CLIENT, GET_ONE_CATEGORY, GET_ONE_SERVICE, GET_SERVICES, LOAD_DATA, LOGIN_USER, LOGOUT_USER, REGISTER_USER, SEND_RECLAMATION } from "../constants/visiteur"
 
 
 export const register = (newUser) => async(dispatch) =>{
@@ -41,6 +41,7 @@ export const current = () => async(dispatch) =>{
 export const reclamation = (newReclamation) => async(dispatch) =>{
     dispatch({type : LOAD_DATA})
     try {
+        console.log(newReclamation)
         let {data} = await axios.post('/api/visiteur/addreclamation', newReclamation)
         dispatch({type : SEND_RECLAMATION , payload : data})
     } catch (error) {
@@ -111,5 +112,23 @@ try {
     dispatch({type : GET_ONE_CATEGORY, payload : data})
 } catch (error) {
     dispatch({type : FAIL_DATA , payload : error.response.data})
+}
+}
+
+
+/********************************************************   ********************************************************/
+
+export const getdemandeclient = () => async(dispatch) =>{
+    const config ={
+        headers : {
+            authorization : localStorage.getItem('token'),
+        },
+    }
+    dispatch({type : LOAD_DATA})
+try {
+    let {data} = await axios.get('/api/user/demande/', config)
+    dispatch({type : GET_DEMANDE_CLIENT , payload : data})
+} catch (error) {
+    dispatch({type : FAIL_DATA , payload : error.response})
 }
 }

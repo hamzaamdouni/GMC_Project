@@ -3,7 +3,6 @@ const { check, validationResult } = require("express-validator");
 
 exports.RegisterReclamationValidation = () => [
     check('nom' , 'Nom obligatoire').notEmpty(),
-    check('prenom' , 'Prenom obligatoire').notEmpty(),
     check('email' , 'Email invalide').isEmail(),
     check('message' , 'message obligatoire').notEmpty(),
 ];

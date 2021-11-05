@@ -1,4 +1,4 @@
-import { CURRENT_AGENT, CURRENT_USER, FAIL_DATA, GET_CATEGORY, GET_ONE_CATEGORY, GET_ONE_SERVICE, GET_SERVICES, LOAD_DATA, LOGIN_USER, LOGOUT_USER, REGISTER_USER, SEND_RECLAMATION } from "../constants/visiteur"
+import { CURRENT_AGENT, CURRENT_USER, FAIL_DATA, GET_CATEGORY, GET_DEMANDE_CLIENT, GET_ONE_CATEGORY, GET_ONE_SERVICE, GET_SERVICES, LOAD_DATA, LOGIN_USER, LOGOUT_USER, REGISTER_USER, SEND_RECLAMATION } from "../constants/visiteur"
 
 
 const initialState = {
@@ -6,6 +6,7 @@ const initialState = {
   agent : {},
   services:[],
   categorys : [],
+  demandes : [],
   service:{},
   category : {},
   reclamation:{},
@@ -47,6 +48,9 @@ const visiteurReducer = (state = initialState, { type, payload }) => {
       case GET_ONE_CATEGORY :
         return { ...state, category: payload.findCategory, isload: false , isAuth: true};
 
+/******************************************************** agent  ********************************************************/
+      case GET_DEMANDE_CLIENT :
+        return{...state, demandes : payload.finddemande , isload: false , isAuth: true}
 
     default : return {...state}
   }

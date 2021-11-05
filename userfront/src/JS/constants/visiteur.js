@@ -14,3 +14,9 @@ export const LOGOUT_USER = 'LOGOUT_USER'
 export const CURRENT_AGENT = 'CURRENT_AGENT'
 export const GET_ONE_SERVICE = 'GET_ONE_SERVICE'
 export const GET_ONE_CATEGORY = 'GET_ONE_CATEGORY'
+
+
+/******************************************************** CLIENT  ********************************************************/ 
+
+export const GET_DEMANDE_CLIENT = 'GET_DEMANDE_CLIENT'
+export const GET_COMMENT_CLIENT = 'GET_RECLAMATION_CLIENT'

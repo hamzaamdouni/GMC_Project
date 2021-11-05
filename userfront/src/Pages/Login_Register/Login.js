@@ -59,7 +59,7 @@ const Login = () => {
                                 <input type="submit" name defaultValue="Continue"  onClick = {handleLogin}/>
                             </div>
                         </form>
-                        <div className="option" ><LinkR to = '/register' className="toregister"> or Connect With Social Media</LinkR></div>
+                        <div className="option" ><LinkR to = '/register' className="toregister"> ou incrivez vous</LinkR></div>
                     </div>
                 </div>
             </div >

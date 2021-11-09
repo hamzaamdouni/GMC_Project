@@ -1,21 +1,41 @@
-import React from 'react'
-import './AgentCard.css'
+import React from "react";
 
-const AgentCard = () => {
-    return (
-        <div className="container">
-            <div className="cover-photo" >
-                <img src="https://images.unsplash.com/photo-1565464027194-7957a2295fb7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80" alt='coverphoto' className="profile" />
-            </div>
-        <div className="profile-name">Beni Smith</div>
-        <div className="about">
-            <p>User Interface Designer</p>
-            <p>front-end developer</p>
-        </div>
-        <button className="msg-btn">Message</button>
-        <button className="follow-btn">Following</button>
-</div>
-    )
-}
+import "./AgentCard.css";
 
-export default AgentCard
+const AgentCard = ({ oneAgent, setModalIsOpen, setIdagent }) => {
+  const idagentselected = oneAgent._id;
+
+  const handleIsOpen = () => {
+    setModalIsOpen(true);
+    setIdagent(idagentselected);
+  };
+
+  return (
+    <div className="container">
+      <div className="cover-photo">
+        <img
+          src="https://images.unsplash.com/photo-1565464027194-7957a2295fb7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80"
+          alt="coverphoto"
+          className="profile"
+        />
+      </div>
+      <div className="profile-name">
+        {oneAgent.id_agent.nom} {oneAgent.id_agent.prenom}
+      </div>
+      <div className="about">
+        <p className="CardService">
+          {oneAgent.id_service.nom} - {oneAgent.id_category.nom}
+        </p>
+        <p> {oneAgent.id_agent.adress} </p>
+      </div>
+      <button className="msg-btn" onClick={handleIsOpen}>
+        Message
+      </button>
+
+      <div></div>
+      <button className="follow-btn">Following</button>
+    </div>
+  );
+};
+
+export default AgentCard;

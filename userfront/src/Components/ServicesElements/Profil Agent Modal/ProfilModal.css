@@ -1,0 +1,81 @@
+.ProfilModalContainer {
+  width: 100%;
+  height: 100vh;
+  display: block;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  z-index: 999;
+  position: fixed;
+  background-color: rgba(221, 174, 166, 0.062);
+}
+
+.ModalCloseBtn {
+  color: #efa51f;
+  margin: 20px;
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+.ProfilModalContent {
+  width: 80%;
+  height: 74vh;
+  margin: 13vh auto;
+  background-color: #131212;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  color: #fff;
+}
+
+.ModalInfoContainer {
+  width: 24%;
+  background-color: #131212;
+  padding: 2%;
+  margin: 1%;
+  border: 0.1px solid #333333;
+  left: 0;
+}
+
+.ModalInfContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.ModalImageCentent {
+  width: 100%;
+  padding: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ModalProfilImg {
+  height: 150px;
+  width: 150px;
+  border-radius: 10%;
+  border: 2px solid #333333;
+  background: #333333;
+  margin-left: 10px;
+  margin-bottom: 20px;
+}
+
+.ModalProfilLike {
+  color: #333333;
+  z-index: 10;
+  position: absolute;
+  margin-top: 100px;
+}
+
+.ModalInfService {
+  color: #efa51f;
+  margin-top: 10px;
+}
+
+.ModalCommentContainer {
+  width: 74%;
+  background-color: #131212;
+  padding: 1%;
+  margin: 1%;
+  border: 0.1px solid #333333;
+}

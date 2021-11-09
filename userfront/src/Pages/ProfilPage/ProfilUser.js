@@ -13,7 +13,7 @@ import { GiCheckMark } from 'react-icons/gi'
 
 
 
-import { currentAgent, onecategory, oneservice } from '../../JS/actions/visiteur'
+import { currentAgent, getdemandeclient, onecategory, oneservice } from '../../JS/actions/visiteur'
 
 const ProfilUser = () => {
 
@@ -36,17 +36,26 @@ const ProfilUser = () => {
     const dispatch = useDispatch()
     
     useEffect(() => {
+        if (user.role === 'Agent'){
         dispatch(currentAgent(id));
+        }
     }, [dispatch,id])
     
     useEffect(() => {
+        if (user.role === 'Agent'){
         dispatch(oneservice(idService));
+        }
     }, [dispatch,idService])
 
     useEffect(() => {
+        if (user.role === 'Agent'){
         dispatch(onecategory(idcategory));
+        }
     }, [dispatch,idcategory])
 
+    useEffect(() => {
+        dispatch(getdemandeclient());
+    }, [dispatch])
     
 
     return (

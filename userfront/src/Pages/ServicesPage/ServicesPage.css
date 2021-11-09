@@ -1,18 +1,19 @@
-.ServicesPage{
-    width: 100%;
-    background-color: #262626;
-    display: flex;
-    justify-content: center;
+.ServicesPage {
+  width: 100%;
+  background-color: #262626;
+  display: flex;
+  justify-content: center;
 }
 
-.ServicesPageContent{
-    padding-top: 11vh;
+.ServicesPageContent {
+  padding-top: 11vh;
+  width: 100%;
 }
 
-.AgentCards{
-    margin: 0 auto;
-    width: 80%;
-    display: flex;
-    flex-wrap: wrap;
-    margin-bottom: 100px;
+.AgentCards {
+  margin: 0 auto;
+  width: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 100px;
 }

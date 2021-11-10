@@ -14,6 +14,7 @@ const {
   DeleteComment,
   getAllAgent,
   getOneAgent,
+  GetCommentVerified,
 } = require("../controllers/user.controllers");
 const isAuth = require("../middlewares/isAuth");
 
@@ -63,12 +64,15 @@ router.delete("/demande/:iddemande", isAuth, DeleteRequestDemande);
 /* * * * * * * * * * * * * * * * * * *  *     Gere  commentaire    * * * * * * * * * * * * * * * * * * *  */
 
 // Ajouter un commentaire
-router.post("/comment/:idagent", isAuth, AddComment);
+router.post("/comment", isAuth, AddComment);
 
 // Modifier un commentaire
 router.put("/comment/:idcomment", isAuth, UpdateComment);
 
 // Supprimer un commentaire
 router.delete("/comment/:idcomment", isAuth, DeleteComment);
+
+// afficher les commentaire verifier
+router.get("/comment/:idagent", isAuth, GetCommentVerified);
 
 module.exports = router;

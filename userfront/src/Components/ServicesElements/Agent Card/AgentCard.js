@@ -31,8 +31,6 @@ const AgentCard = ({ oneAgent, setModalIsOpen, setIdagent }) => {
       <button className="msg-btn" onClick={handleIsOpen}>
         Message
       </button>
-
-      <div></div>
       <button className="follow-btn">Following</button>
     </div>
   );

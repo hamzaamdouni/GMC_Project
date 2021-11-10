@@ -1,4 +1,5 @@
 import {
+  ADD_COMMENT,
   CURRENT_AGENT,
   CURRENT_USER,
   FAIL_DATA,
@@ -9,6 +10,7 @@ import {
   GET_ONE_CATEGORY,
   GET_ONE_SERVICE,
   GET_SERVICES,
+  GET_VERIFIED_COMMENT,
   LOAD_DATA,
   LOGIN_USER,
   LOGOUT_USER,
@@ -27,6 +29,8 @@ const initialState = {
   service: {},
   category: {},
   reclamation: {},
+  newComment: {},
+  verifiedComment: [],
   errors: [],
   isAuth: false,
   isload: false,
@@ -69,7 +73,10 @@ const visiteurReducer = (state = initialState, { type, payload }) => {
       return { ...state, agents: payload.AgentList, isload: false };
     case GET_ONE_AGENT:
       return { ...state, oneagent: payload.OneAgent, isload: false };
-
+    case ADD_COMMENT:
+      return { ...state, newComment: payload.newComment, isload: false };
+    case GET_VERIFIED_COMMENT:
+      return { ...state, verifiedComment: payload.GetComment, isload: false };
     /******************************************************** agent  ********************************************************/
 
     case CURRENT_AGENT:

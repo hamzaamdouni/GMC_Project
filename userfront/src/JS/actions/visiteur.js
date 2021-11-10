@@ -1,5 +1,6 @@
 import axios from "axios";
 import {
+  ADD_COMMENT,
   CURRENT_AGENT,
   CURRENT_USER,
   FAIL_DATA,
@@ -10,6 +11,7 @@ import {
   GET_ONE_CATEGORY,
   GET_ONE_SERVICE,
   GET_SERVICES,
+  GET_VERIFIED_COMMENT,
   LOAD_DATA,
   LOGIN_USER,
   LOGOUT_USER,
@@ -124,6 +126,35 @@ export const getoneagent = (idagent) => async (dispatch) => {
   }
 };
 
+export const addcomment = (newComment) => async (dispatch) => {
+  const config = {
+    headers: {
+      authorization: localStorage.getItem("token"),
+    },
+  };
+  dispatch({ type: LOAD_DATA });
+  try {
+    let { data } = await axios.post("/api/user/comment", newComment, config);
+    dispatch({ type: ADD_COMMENT, payload: data });
+  } catch (error) {
+    dispatch({ type: FAIL_DATA, payload: error.response.data });
+  }
+};
+
+export const getverifiedcomment = (idagent) => async (dispatch) => {
+  const config = {
+    headers: {
+      authorization: localStorage.getItem("token"),
+    },
+  };
+  dispatch({ type: LOAD_DATA });
+  try {
+    let { data } = await axios.get(`/api/user/comment/${idagent}`, config);
+    dispatch({ type: GET_VERIFIED_COMMENT, payload: data });
+  } catch (error) {
+    dispatch({ type: FAIL_DATA, payload: error.response.data });
+  }
+};
 /******************************************************** agent  ********************************************************/
 
 export const currentAgent = (id) => async (dispatch) => {

@@ -31,7 +31,11 @@ const agentSchema = new Schema({
     type: String,
     required: true,
   },
-  note: {
+  satisfait: {
+    type: Number,
+    default: 0,
+  },
+  insatisfait: {
     type: Number,
     default: 0,
   },

@@ -6,6 +6,7 @@ const category = require("../models/category");
 
 const bcrypt = require("bcrypt");
 var jwt = require("jsonwebtoken");
+const comment = require("../models/comment");
 
 /* * * * * * * * * * * * * * * * * * *  *     Gere  profil Client    * * * * * * * * * * * * * * * * * * *  */
 
@@ -192,18 +193,19 @@ exports.DeleteRequestDemande = async (request, response) => {
 // Ajouter un commentaire
 exports.AddComment = async (request, response) => {
   try {
-    const { idagent } = request.params;
-    const findAgent = await agent.findOne({ _id: idagent });
+    const token = request.headers["authorization"];
+    const decoded = jwt.verify(token, process.env.SECRET_KEY);
+    const { _id } = decoded;
     const newComment = new comment({
       ...request.body,
-      id_user: request.user._id,
-      id_agent: findAgent._id,
+      id_user: _id,
     });
+    console.log(newComment);
     await newComment.save();
     response.send({ msg: "register seccess", demande: newComment });
   } catch (error) {
     console.log(error);
-    response.status(400).send({ msg: "can not get Agents", error });
+    response.status(400).send({ msg: "can not register", error });
   }
 };
 
@@ -227,5 +229,18 @@ exports.DeleteComment = async (request, response) => {
     response.send({ msg: "deleted succ" });
   } catch (error) {
     response.status(400).send({ msg: "can not delete" });
+  }
+};
+
+// afficher les commentaire verifier
+exports.GetCommentVerified = async (request, response) => {
+  try {
+    const { idagent } = request.params;
+    const GetComment = await comment
+      .find({ id_agent: idagent, etat: "Verified" })
+      .populate("id_user");
+    response.send({ msg: "get all verified comment", GetComment });
+  } catch (error) {
+    response.status(400).send({ msg: "can not get verified comment", error });
   }
 };

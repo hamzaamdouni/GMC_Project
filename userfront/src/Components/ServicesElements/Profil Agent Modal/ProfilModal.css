@@ -29,7 +29,7 @@
 }
 
 .ModalInfoContainer {
-  width: 24%;
+  width: 28%;
   background-color: #131212;
   padding: 2%;
   margin: 1%;
@@ -72,10 +72,165 @@
   margin-top: 10px;
 }
 
+.ModalInfoWrapper {
+  margin-top: 50px;
+}
+
+.ModalInfoInformation {
+  padding: 5px;
+}
+
+.ModalInfoIcon {
+  color: #efa51f;
+  margin-right: 10px;
+}
+
 .ModalCommentContainer {
-  width: 74%;
+  width: 70%;
   background-color: #131212;
   padding: 1%;
   margin: 1%;
   border: 0.1px solid #333333;
+}
+
+.ModalDescriptionContainer {
+  background-color: #1a1a1a;
+  border: 0.5px solid #333333;
+  border-radius: 10px;
+  padding: 2%;
+}
+
+.ModalDescriptionContainer p {
+  line-height: 30px;
+  text-align: center;
+  color: #bebebe;
+  margin-bottom: 25px;
+}
+
+.ModalNoteContainer {
+  display: flex;
+  align-items: center;
+}
+
+.LaughingIcon {
+  color: #efa51f;
+  margin-right: 5px;
+}
+
+.AngryIcon {
+  color: #970500;
+  margin-right: 5px;
+}
+
+.ModalUserCommentContainer {
+  margin-top: 5px;
+  overflow-x: hidden;
+  zoom: 1;
+  height: 47vh;
+}
+.ModalNoteContainer span {
+  color: #777777;
+  font-size: 14px;
+  margin-right: 25px;
+}
+
+.ModalUserCommentWrapper {
+  margin-top: 15px;
+  display: flex;
+}
+
+.CommainterImage {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  border: 1px solid #b97900;
+  background: #efa51f;
+  margin-right: 10px;
+}
+
+.CommainterContent {
+  display: flex;
+  flex-direction: column;
+  background-color: #181818;
+  width: 100%;
+  border-radius: 10px;
+  padding: 1%;
+}
+
+.CommainterContent .CommanterName {
+  color: #b97900;
+  font-size: 14px;
+  margin-right: 25px;
+}
+
+.CommainterContent .CommanterParagraphe {
+  line-height: 30px;
+  color: #bebebe;
+  margin: 5px 15px;
+  font-size: 15px;
+}
+
+.ModalUserCommentContainer .ModalAddComment {
+  min-height: 40px;
+  position: relative;
+  margin-top: 20px;
+}
+
+.ModalUserCommentContainer .ModalAddComment textarea {
+  position: absolute;
+  height: 100%;
+  width: 85%;
+  background: #181818;
+  border: 1px solid transparent;
+  border-radius: 50px 0 0 50px;
+  outline: none;
+  transition: all 0.3s ease;
+  color: #636c72;
+  font-size: 16px;
+  padding: 10px 20px;
+}
+
+.ModalUserCommentContainer .ModalAddComment textarea:focus {
+  border-color: #2e2e2e;
+  background-color: #131212;
+}
+
+.ModalUserCommentContainer .ModalAddComment label {
+  position: absolute;
+  font-size: 15px;
+  color: #636c72;
+  left: 18px;
+  top: 10px;
+  pointer-events: none;
+  transition: all 0.5s ease;
+}
+
+.ModalUserCommentContainer .ModalAddComment button {
+  position: absolute;
+  height: 40px;
+  width: 15%;
+  font-size: 15px;
+  color: #636c72;
+  right: 0;
+  transition: all 0.5s ease;
+  padding: 3px 20px;
+  border-radius: 0 50px 50px 0;
+  border: 0.5px solid #efa51f;
+  background-color: #efa51f;
+  color: #131212;
+  margin: 0;
+}
+
+.ModalUserCommentContainer .ModalAddComment textarea:focus ~ button {
+  border: 1px solid #2e2e2e;
+  background-color: transparent;
+  color: #efa51f;
+}
+
+.ModalUserCommentContainer .ModalAddComment textarea:focus ~ label {
+  left: 20px;
+  top: -10px;
+  color: #efa51f;
+  font-size: 14px;
+  background: #131212;
 }

@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { BiCaretDown } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../../JS/actions/visiteur";
+import Loading from "../../Loading/Loading";
 const Navbar = () => {
   const user = useSelector((state) => state.visiteurReducer.user);
   const isload = useSelector((state) => state.visiteurReducer.isload);
@@ -15,7 +16,7 @@ const Navbar = () => {
   return (
     <div>
       {isload ? (
-        <h3> stana</h3>
+        <Loading />
       ) : user ? (
         <nav className="navbarContainer">
           <img src={Logo} alt="logo" className="NavImg" />

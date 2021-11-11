@@ -16,6 +16,7 @@ export const GET_AGENTS_CATEGORYS = "GET_AGENTS_CATEGORYS";
 export const GET_ONE_AGENT = "GET_ONE_AGENT";
 export const ADD_COMMENT = "ADD_COMMENT";
 export const GET_VERIFIED_COMMENT = "GET_VERIFIED_COMMENT";
+export const ADD_DEMANDE = "ADD_DEMANDE";
 
 /******************************************************** agent  ********************************************************/
 export const CURRENT_AGENT = "CURRENT_AGENT";

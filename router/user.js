@@ -37,10 +37,10 @@ router.delete("/profil", isAuth, deleteUser);
 router.get("/allagents", isAuth, getAllAgent);
 
 // Afficher Les Agent par service
-router.get("/agent/service/:agentservice", isAuth, getAllAgentService);
+router.get("/agent/service/:service", isAuth, getAllAgentService);
 
 // Afficher Les Agent par category
-router.get("/agent/category/:agentcategory", isAuth, getAllAgentCategory);
+router.get("/agent/category/:category", isAuth, getAllAgentCategory);
 
 // Afficher Un Agent
 router.get("/agent/:idagent", isAuth, getOneAgent);
@@ -50,10 +50,10 @@ router.get("/agent/:idagent", isAuth, getOneAgent);
 /* * * * * * * * * * * * * * * * * * *  *     Gere   demande    * * * * * * * * * * * * * * * * * * *  */
 
 // Afficher les demande
-router.get("/demande/", isAuth, GetRequestDemande);
+router.get("/demande", isAuth, GetRequestDemande);
 
 // Envoyer une demande de Demande
-router.post("/demande/:idagent", isAuth, SendRequestDemande);
+router.post("/demande", isAuth, SendRequestDemande);
 
 // Modifier une demande si pas encore traité
 router.put("/demande/:iddemande", isAuth, UpdateRequestDemande);

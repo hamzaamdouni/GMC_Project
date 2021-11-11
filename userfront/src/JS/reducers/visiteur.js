@@ -1,5 +1,6 @@
 import {
   ADD_COMMENT,
+  ADD_DEMANDE,
   CURRENT_AGENT,
   CURRENT_USER,
   FAIL_DATA,
@@ -30,6 +31,7 @@ const initialState = {
   category: {},
   reclamation: {},
   newComment: {},
+  newDemande: {},
   verifiedComment: [],
   errors: [],
   isAuth: false,
@@ -77,6 +79,8 @@ const visiteurReducer = (state = initialState, { type, payload }) => {
       return { ...state, newComment: payload.newComment, isload: false };
     case GET_VERIFIED_COMMENT:
       return { ...state, verifiedComment: payload.GetComment, isload: false };
+    case ADD_DEMANDE:
+      return { ...state, newDemande: payload.newDemande, isload: false };
     /******************************************************** agent  ********************************************************/
 
     case CURRENT_AGENT:

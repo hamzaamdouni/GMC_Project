@@ -1,6 +1,7 @@
 import axios from "axios";
 import {
   ADD_COMMENT,
+  ADD_DEMANDE,
   CURRENT_AGENT,
   CURRENT_USER,
   FAIL_DATA,
@@ -151,6 +152,21 @@ export const getverifiedcomment = (idagent) => async (dispatch) => {
   try {
     let { data } = await axios.get(`/api/user/comment/${idagent}`, config);
     dispatch({ type: GET_VERIFIED_COMMENT, payload: data });
+  } catch (error) {
+    dispatch({ type: FAIL_DATA, payload: error.response.data });
+  }
+};
+
+export const addDemande = (newDemande) => async (dispatch) => {
+  const config = {
+    headers: {
+      authorization: localStorage.getItem("token"),
+    },
+  };
+  dispatch({ type: LOAD_DATA });
+  try {
+    let { data } = await axios.post("/api/user/demande", newDemande, config);
+    dispatch({ type: ADD_DEMANDE, payload: data });
   } catch (error) {
     dispatch({ type: FAIL_DATA, payload: error.response.data });
   }

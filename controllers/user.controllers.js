@@ -73,10 +73,10 @@ exports.getAllAgentService = async (request, response) => {
     const OneService = await service.findOne({ nom: agentservice });
     const { _id } = OneService;
     const AgentList = await agent.find({ id_service: _id });
-    response.send({ msg: "get all agent", AgentList });
+    response.send({ msg: "get all agent by service", AgentList });
   } catch (error) {
     console.log(error);
-    response.status(400).send({ msg: "can not get Agents", error });
+    response.status(400).send({ msg: "can not get Agents by service", error });
   }
 };
 
@@ -87,10 +87,10 @@ exports.getAllAgentCategory = async (request, response) => {
     const OneCategory = await category.findOne({ nom: agentcategory });
     const { _id } = OneCategory;
     const AgentList = await agent.find({ id_category: _id });
-    response.send({ msg: "get all agent", AgentList });
+    response.send({ msg: "get all agent by category", AgentList });
   } catch (error) {
     console.log(error);
-    response.status(400).send({ msg: "can not get Agents", error });
+    response.status(400).send({ msg: "can not get Agents by category", error });
   }
 };
 
@@ -98,8 +98,6 @@ exports.getAllAgentCategory = async (request, response) => {
 exports.getOneAgent = async (request, response) => {
   try {
     const { idagent } = request.params;
-    console.log("---------------------------------------------");
-    console.log(idagent);
     const OneAgent = await agent
       .findOne({ _id: idagent })
       .populate("id_agent")
@@ -135,17 +133,12 @@ exports.SendRequestDemande = async (request, response) => {
     const token = request.headers["authorization"];
     const decoded = jwt.verify(token, process.env.SECRET_KEY);
     const { _id } = decoded;
-    const { idagent } = request.params;
-    const findAgent = await agent.findOne({ id_agent: idagent });
-    console.log("findagent", findAgent);
     const newRequest = new demande({
       ...request.body,
       id_user: _id,
-      id_agent: findAgent.id_agent,
-      id_category: findAgent.id_category,
     });
     await newRequest.save();
-    response.send({ msg: "register seccess", demande: newRequest });
+    response.send({ msg: "register demande seccess", demande: newRequest });
   } catch (error) {
     console.log(error);
     response.status(400).send({ msg: "can not register demande", error });

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./ProfilModal.css";
 import ProfilImage from "../../../Assets/User/profil.jpg";
+import DemandeImage from "../../../Assets/User/sendrequest.svg";
 
 import { AiFillCloseCircle, AiFillLike } from "react-icons/ai";
 import { FaMapMarkedAlt, FaUserGraduate } from "react-icons/fa";
@@ -15,20 +16,35 @@ import { MdWork } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addcomment,
+  addDemande,
   getoneagent,
   getverifiedcomment,
 } from "../../../JS/actions/visiteur";
 import Loading from "../../Loading/Loading";
 
 const ProfilModal = ({ setModalIsOpen, idagent }) => {
-  const handleComment = (e) => {
-    setNewComment({ ...newComment, [e.target.name]: e.target.value });
+  /*-----------------------------     ----------------------------- */
+  const [newComment, setNewComment] = useState({
+    id_agent: idagent,
+    message: "",
+  });
+  const [isDemande, setIsDemande] = useState(false);
+  const [newDemande, setNewDemande] = useState({
+    id_agent: idagent,
+    message: "",
+    date: "",
+  });
+
+  /*-----------------------------     ----------------------------- */
+  const handleIsDemande = () => {
+    setIsDemande(!isDemande);
   };
 
   const handleIsOpen = () => {
     setModalIsOpen(false);
   };
 
+  /*-----------------------------     ----------------------------- */
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -39,6 +55,7 @@ const ProfilModal = ({ setModalIsOpen, idagent }) => {
     dispatch(getverifiedcomment(idagent));
   }, [dispatch, idagent]);
 
+  /*-----------------------------     ----------------------------- */
   const isload = useSelector((state) => state.visiteurReducer.isload);
   const oneagent = useSelector((state) => state.visiteurReducer.oneagent);
   const verifiedComment = useSelector(
@@ -46,17 +63,29 @@ const ProfilModal = ({ setModalIsOpen, idagent }) => {
   );
   const user = useSelector((state) => state.visiteurReducer.user);
 
-  console.log(verifiedComment);
+  /*-----------------------------  Ajouter un commentaire   ----------------------------- */
+  const handleComment = (e) => {
+    setNewComment({ ...newComment, [e.target.name]: e.target.value });
+  };
 
-  const [newComment, setNewComment] = useState({
-    id_agent: "",
-    message: "",
-  });
   const handleSubmit = () => {
     dispatch(addcomment(newComment));
     setNewComment({
-      id_agent: oneagent._id,
+      id_agent: idagent,
       message: "",
+    });
+  };
+  /*-----------------------------  Ajouter une demande   ----------------------------- */
+  const handleDemande = (e) => {
+    setNewDemande({ ...newDemande, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmitDemande = () => {
+    dispatch(addDemande(newDemande));
+    setNewDemande({
+      id_agent: idagent,
+      message: "",
+      date: "",
     });
   };
 
@@ -68,14 +97,13 @@ const ProfilModal = ({ setModalIsOpen, idagent }) => {
         size={32}
       />
       {isload ? (
-        <h1>LOAD</h1>
+        <Loading />
       ) : (
         <div className="ProfilModalContent">
           <div className="ModalInfoContainer">
             <div className="ModalInfContent">
               <div className="ModalImageCentent">
                 <img src={ProfilImage} alt="Agent" className="ModalProfilImg" />
-                <AiFillLike className="ModalProfilLike" size={25} />
               </div>
 
               <div className="ModalInfNom">
@@ -119,68 +147,97 @@ const ProfilModal = ({ setModalIsOpen, idagent }) => {
                 </span>
               </div>
             </div>
+            <div className="ModalDemande">
+              <button className="ModalDemandeBtn" onClick={handleIsDemande}>
+                {" "}
+                {isDemande ? "Feedback" : "Demander un service"}{" "}
+              </button>
+            </div>
           </div>
 
-          <div className="ModalCommentContainer">
-            <div className="ModalDescriptionContainer">
-              <p>{oneagent && oneagent.description}</p>
-              <div className="ModalNoteContainer">
-                <BsFillEmojiLaughingFill className="LaughingIcon" size={18} />
-                <span>
-                  {oneagent && oneagent.satisfait} {"Satisfaits"}
-                </span>
-                <BsFillEmojiAngryFill size={18} className="AngryIcon" />
-                <span>
-                  {oneagent && oneagent.insatisfait} {"Insatisfaits"}
-                </span>
+          {isDemande ? (
+            <div className="ModalDemandeContainer">
+              <div className="ModalDemandeImage">
+                <img src={DemandeImage} alt="demande" />
               </div>
-            </div>
-            <div className="ModalUserCommentContainer">
-              {/* <div className="ModalUserCommentWrapper">
-                <img
-                  src={ProfilImage}
-                  alt="Commenter"
-                  className="CommainterImage"
-                />
-                <div className="CommainterContent">
-                  <span className="CommanterName"> Hamza Amdouni</span>
-                  <span className="CommanterParagraphe">Mon commentaire</span>
-                </div>
-              </div> */}
-              {isload ? (
-                <Loading />
-              ) : (
-                verifiedComment.map((onecomment) => (
-                  <div className="ModalUserCommentWrapper">
-                    <img
-                      src={ProfilImage}
-                      alt="Commenter"
-                      className="CommainterImage"
+              <div className="ModalDemandeContent">
+                <div className="ModalDemandeDate">
+                  <div>
+                    <input
+                      className="DateContent"
+                      name="date"
+                      type="datetime-local"
+                      max="2050-06-25T00:00"
+                      min="2020-08-13T00:00"
+                      onInput={handleDemande}
                     />
-                    <div className="CommainterContent">
-                      <span className="CommanterName">
-                        {onecomment.id_user.nom} {onecomment.id_user.prenom}
-                      </span>
-                      <span className="CommanterParagraphe">
-                        {onecomment.message}
-                      </span>
-                    </div>
                   </div>
-                ))
-              )}
-
-              <div className="ModalAddComment">
-                <textarea
-                  required
-                  name="message"
-                  onInput={handleComment}
-                  value={newComment.message}
-                />
-                <label>Enter votre message</label>
-                <button onClick={handleSubmit}>Add</button>
+                  <div>
+                    <button onClick={handleSubmitDemande}>Envoyer</button>
+                  </div>
+                </div>
+                <div className="ModalDemandeMessage">
+                  <textarea
+                    required
+                    name="message"
+                    onInput={handleDemande}
+                    value={newDemande.message}
+                  />
+                  <label>Détailler votre demande s'il vous plaît</label>
+                </div>
               </div>
             </div>
-          </div>
+          ) : (
+            <div className="ModalCommentContainer">
+              <div className="ModalDescriptionContainer">
+                <p>{oneagent && oneagent.description}</p>
+                <div className="ModalNoteContainer">
+                  <BsFillEmojiLaughingFill className="LaughingIcon" size={18} />
+                  <span>
+                    {oneagent && oneagent.satisfait} {"Satisfaits"}
+                  </span>
+                  <BsFillEmojiAngryFill size={18} className="AngryIcon" />
+                  <span>
+                    {oneagent && oneagent.insatisfait} {"Insatisfaits"}
+                  </span>
+                </div>
+              </div>
+              <div className="ModalUserCommentContainer">
+                {isload ? (
+                  <Loading />
+                ) : (
+                  verifiedComment.map((onecomment) => (
+                    <div className="ModalUserCommentWrapper">
+                      <img
+                        src={ProfilImage}
+                        alt="Commenter"
+                        className="CommainterImage"
+                      />
+                      <div className="CommainterContent">
+                        <span className="CommanterName">
+                          {onecomment.id_user.nom} {onecomment.id_user.prenom}
+                        </span>
+                        <span className="CommanterParagraphe">
+                          {onecomment.message}
+                        </span>
+                      </div>
+                    </div>
+                  ))
+                )}
+
+                <div className="ModalAddComment">
+                  <textarea
+                    required
+                    name="message"
+                    onInput={handleComment}
+                    value={newComment.message}
+                  />
+                  <label>Enter votre message</label>
+                  <button onClick={handleSubmit}>Add</button>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>

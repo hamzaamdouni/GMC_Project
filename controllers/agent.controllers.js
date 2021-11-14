@@ -3,6 +3,7 @@ const user = require("../models/user");
 const category = require("../models/category");
 const service = require("../models/service");
 const comment = require("../models/comment");
+const demande = require("../models/demande");
 
 var jwt = require("jsonwebtoken");
 
@@ -36,8 +37,9 @@ exports.RegisterAgent = async (request, response) => {
 // Afficher le compte authetifier de l'agent
 exports.GetAgent = async (request, response) => {
   try {
-    const { id } = request.params;
-    const findAgent = await agent.findOne({ id_agent: id });
+    const token = request.headers["authorization"];
+    const decoded = jwt.verify(token, process.env.SECRET_KEY);
+    const findAgent = await agent.findOne({ id_agent: decoded._id });
     response.status(200).send({ msg: "GET AGENT Saccess ", findAgent });
   } catch (error) {
     response.status(400).send({ msg: "can not get the Agent" });
@@ -47,8 +49,10 @@ exports.GetAgent = async (request, response) => {
 // update le compte authetifier de l'agent
 exports.UpdateAgent = async (request, response) => {
   try {
+    const token = request.headers["authorization"];
+    const decoded = jwt.verify(token, process.env.SECRET_KEY);
     await agent.updateOne(
-      { id_agent: request.user._id },
+      { id_agent: decoded._id },
       { $set: { ...request.body } }
     );
     response.send({ msg: "updated succ" });
@@ -58,26 +62,20 @@ exports.UpdateAgent = async (request, response) => {
   }
 };
 
-// Delete le compte authetifier de l'agent
-exports.DeleteAgent = async (request, response) => {
-  try {
-    let resultUser = await user.deleteOne({ _id: request.user._id });
-    let result = await agent.deleteOne({ id_agent: request.user._id });
-    response.send({ msg: "deleted succ" });
-  } catch (error) {
-    response.status(400).send({ msg: "can not delete" });
-  }
-};
-
 /* * * * * * * * * * * * * * * * * * *  *     Gere   demande    * * * * * * * * * * * * * * * * * * *  */
 // Afficher les demande
 exports.GetRequestDemande = async (request, response) => {
   try {
-    const finddemande = await demande.find({ id_agent: request.agent._id });
+    const token = request.headers["authorization"];
+    const decoded = jwt.verify(token, process.env.SECRET_KEY);
+    const { _id } = decoded;
+    const findAgent = await agent.findOne({ id_agent: _id });
+    const finddemande = await demande
+      .find({ id_agent: findAgent._id })
+      .populate("id_user");
     response.send({ msg: "Get all request ", finddemande });
   } catch (error) {
-    console.log(error);
-    response.status(400).send({ msg: "can not get Agents", error });
+    response.status(400).send({ msg: "can not send ", error });
   }
 };
 
@@ -85,10 +83,7 @@ exports.GetRequestDemande = async (request, response) => {
 exports.TraiterDemande = async (request, response) => {
   try {
     const { iddemande } = request.params;
-    await demande.updateOne(
-      { _id: iddemande },
-      { $set: { ...request.body.etat } }
-    );
+    await demande.updateOne({ _id: iddemande }, { $set: { ...request.body } });
     response.send({ msg: "updated succ" });
   } catch (error) {
     console.log(error);
@@ -99,28 +94,38 @@ exports.TraiterDemande = async (request, response) => {
 exports.DeleteRequestDemande = async (request, response) => {
   try {
     const { iddemande } = request.params;
-    const findDemande = await demande.findOne({ _id: iddemande });
-    if (findDemande == "En cour") {
-      let result = await deleteOne({ _id: iddemande });
-      response.send({ msg: "deleted succ" });
-    } else {
-      response.status(400).send({ msg: "Demande deja realiser" });
-    }
+    console.log(iddemande);
+    let result = await demande.deleteOne({ _id: iddemande });
+    response.send({ msg: "deleted succ" });
   } catch (error) {
+    console.log(error);
     response.status(400).send({ msg: "can not delete" });
   }
 };
 
 /* * * * * * * * * * * * * * * * * * *  *     Gere  commentaire    * * * * * * * * * * * * * * * * * * *  */
 
+// Afficher les commentaires
+exports.GetComments = async (request, response) => {
+  try {
+    const token = request.headers["authorization"];
+    const decoded = jwt.verify(token, process.env.SECRET_KEY);
+    const { _id } = decoded;
+    const findAgent = await agent.findOne({ id_agent: _id });
+    const findcomment = await comment
+      .find({ id_agent: findAgent._id })
+      .populate("id_user");
+    response.send({ msg: "Get all comments ", findcomment });
+  } catch (error) {
+    response.status(400).send({ msg: "can not send ", error });
+  }
+};
+
 // traité un commentaire (accepte ou refuser)
 exports.TraiterComment = async (request, response) => {
   try {
     const { idcomment } = request.params;
-    await comment.updateOne(
-      { _id: idcomment },
-      { $set: { ...request.body.etat } }
-    );
+    await comment.updateOne({ _id: idcomment }, { $set: { ...request.body } });
     response.send({ msg: "updated succ" });
   } catch (error) {
     console.log(error);
@@ -132,7 +137,7 @@ exports.TraiterComment = async (request, response) => {
 exports.DeleteComment = async (request, response) => {
   try {
     const { idcomment } = request.params;
-    let result = await deleteOne({ _id: idcomment });
+    let result = await comment.deleteOne({ _id: idcomment });
     response.send({ msg: "deleted succ" });
   } catch (error) {
     response.status(400).send({ msg: "can not delete" });

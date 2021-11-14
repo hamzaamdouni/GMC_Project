@@ -9,7 +9,6 @@ const {
   RegisterAgent,
   GetAgent,
   UpdateAgent,
-  DeleteAgent,
   GetRequestDemande,
   TraiterDemande,
   DeleteRequestDemande,
@@ -17,6 +16,7 @@ const {
   DeleteComment,
   GetOneCategory,
   GetOneService,
+  GetComments,
 } = require("../controllers/agent.controllers");
 
 const router = express.Router();
@@ -33,38 +33,37 @@ router.post(
 );
 
 // Afficher le compte authetifier du client
-router.get("/profil/:id", isAuth, GetAgent);
+router.get("/profil", isAuth, GetAgent);
 
 // uppdate le compte authetifier du client
 router.put(
   "/profil",
   isAuth,
-  isAgent,
   RegisterAgentValidation(),
   Agentvalidation,
   UpdateAgent
 );
 
-// Delete le compte authetifier du Client
-router.delete("/profil", isAuth, isAgent, DeleteAgent);
-
 /* * * * * * * * * * * * * * * * * * *  *     Gere   demande    * * * * * * * * * * * * * * * * * * *  */
 // Afficher les demande
-router.get("/demande/", isAuth, isAgent, GetRequestDemande);
+router.get("/demande", isAuth, GetRequestDemande);
 
 // traité une demande
-router.put("/demande/:iddemande", isAuth, isAgent, TraiterDemande);
+router.put("/demande/:iddemande", isAuth, TraiterDemande);
 
 // Supprimer une demande
-router.delete("/demande/:iddemande", isAuth, isAgent, DeleteRequestDemande);
+router.delete("/demande/:iddemande", isAuth, DeleteRequestDemande);
 
 /* * * * * * * * * * * * * * * * * * *  *     Gere  commentaire    * * * * * * * * * * * * * * * * * * *  */
 
+// Afficher les commentaires
+router.get("/comment", isAuth, GetComments);
+
 // traité un commentaire (accepte ou refuser)
-router.put("/comment/:idcomment", isAuth, isAgent, TraiterComment);
+router.put("/comment/:idcomment", isAuth, TraiterComment);
 
 // Supprimer un commentaire
-router.delete("/comment/:idcomment", isAuth, isAgent, DeleteComment);
+router.delete("/comment/:idcomment", isAuth, DeleteComment);
 
 /* * * * * * * * * * * * * * * * * * *  *     Gere  service et category    * * * * * * * * * * * * * * * * * * *  */
 router.get("/service/:id", GetOneService);

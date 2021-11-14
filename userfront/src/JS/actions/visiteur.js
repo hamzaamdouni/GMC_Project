@@ -4,16 +4,26 @@ import {
   ADD_DEMANDE,
   CURRENT_AGENT,
   CURRENT_USER,
+  FAIL_COMMENT,
   FAIL_DATA,
+  FAIL_DEMANDE,
+  GET_AGENTS_CATEGORYS,
+  GET_AGENTS_SERVICES,
+  GET_AGENT_COMMENTS,
+  GET_AGENT_DEMANDES,
   GET_ALL_AGENTS,
   GET_CATEGORY,
-  GET_DEMANDE_CLIENT,
   GET_ONE_AGENT,
   GET_ONE_CATEGORY,
   GET_ONE_SERVICE,
   GET_SERVICES,
+  GET_USER_COMMENTS,
+  GET_USER_DEMANDES,
   GET_VERIFIED_COMMENT,
+  LOAD_AGENTS,
+  LOAD_COMMENT,
   LOAD_DATA,
+  LOAD_DEMANDE,
   LOGIN_USER,
   LOGOUT_USER,
   REGISTER_USER,
@@ -38,21 +48,6 @@ export const login = (user, hisory) => async (dispatch) => {
     hisory.push("/services");
   } catch (error) {
     dispatch({ type: FAIL_DATA, payload: error.response.data });
-  }
-};
-
-export const current = () => async (dispatch) => {
-  const config = {
-    headers: {
-      authorization: localStorage.getItem("token"),
-    },
-  };
-  dispatch({ type: LOAD_DATA });
-  try {
-    let { data } = await axios.get("/api/user/profil", config);
-    dispatch({ type: CURRENT_USER, payload: data });
-  } catch (error) {
-    dispatch({ type: FAIL_DATA, payload: error.response });
   }
 };
 
@@ -97,7 +92,7 @@ export const logout = () => {
 };
 
 /******************************************************** User  ********************************************************/
-export const getallagents = () => async (dispatch) => {
+export const current = () => async (dispatch) => {
   const config = {
     headers: {
       authorization: localStorage.getItem("token"),
@@ -105,8 +100,59 @@ export const getallagents = () => async (dispatch) => {
   };
   dispatch({ type: LOAD_DATA });
   try {
+    let { data } = await axios.get("/api/user/profil", config);
+    dispatch({ type: CURRENT_USER, payload: data });
+  } catch (error) {
+    dispatch({ type: FAIL_DATA, payload: error.response });
+  }
+};
+
+export const getallagents = () => async (dispatch) => {
+  const config = {
+    headers: {
+      authorization: localStorage.getItem("token"),
+    },
+  };
+  dispatch({ type: LOAD_AGENTS });
+  try {
     let { data } = await axios.get(`/api/user/allagents`, config);
     dispatch({ type: GET_ALL_AGENTS, payload: data });
+  } catch (error) {
+    dispatch({ type: FAIL_DATA, payload: error.response.data });
+  }
+};
+
+export const getallagentService = (service) => async (dispatch) => {
+  const config = {
+    headers: {
+      authorization: localStorage.getItem("token"),
+    },
+  };
+  dispatch({ type: LOAD_AGENTS });
+  try {
+    let { data } = await axios.get(
+      `/api/user/agents/service/${service}`,
+      config
+    );
+    dispatch({ type: GET_AGENTS_SERVICES, payload: data });
+  } catch (error) {
+    dispatch({ type: FAIL_DATA, payload: error.response.data });
+  }
+};
+
+export const getallagentCategory = (category) => async (dispatch) => {
+  const config = {
+    headers: {
+      authorization: localStorage.getItem("token"),
+    },
+  };
+  dispatch({ type: LOAD_AGENTS });
+  try {
+    let { data } = await axios.get(
+      `/api/user/agents/category/${category}`,
+      config
+    );
+    dispatch({ type: GET_AGENTS_CATEGORYS, payload: data });
   } catch (error) {
     dispatch({ type: FAIL_DATA, payload: error.response.data });
   }
@@ -171,6 +217,64 @@ export const addDemande = (newDemande) => async (dispatch) => {
     dispatch({ type: FAIL_DATA, payload: error.response.data });
   }
 };
+
+export const deleteUser = () => async (dispatch) => {
+  const config = {
+    headers: {
+      authorization: localStorage.getItem("token"),
+    },
+  };
+  try {
+    await axios.delete(`/api/user/profil`, config);
+    dispatch(logout());
+  } catch (error) {
+    dispatch({ type: FAIL_DATA, payload: error.response.data });
+  }
+};
+
+export const editCurrentUser = (editUser) => async (dispatch) => {
+  const config = {
+    headers: {
+      authorization: localStorage.getItem("token"),
+    },
+  };
+  try {
+    await axios.put(`/api/user/profil`, editUser, config);
+    dispatch(current());
+  } catch (error) {
+    dispatch({ type: FAIL_DATA, payload: error.response.data });
+  }
+};
+
+export const getdemandeUser = () => async (dispatch) => {
+  const config = {
+    headers: {
+      authorization: localStorage.getItem("token"),
+    },
+  };
+  dispatch({ type: LOAD_DEMANDE });
+  try {
+    let { data } = await axios.get("/api/user/demande", config);
+    dispatch({ type: GET_USER_DEMANDES, payload: data });
+  } catch (error) {
+    dispatch({ type: FAIL_DEMANDE, payload: error.response });
+  }
+};
+
+export const getcommentUser = () => async (dispatch) => {
+  const config = {
+    headers: {
+      authorization: localStorage.getItem("token"),
+    },
+  };
+  dispatch({ type: LOAD_COMMENT });
+  try {
+    let { data } = await axios.get("/api/user/comment", config);
+    dispatch({ type: GET_USER_COMMENTS, payload: data });
+  } catch (error) {
+    dispatch({ type: FAIL_COMMENT, payload: error.response });
+  }
+};
 /******************************************************** agent  ********************************************************/
 
 export const currentAgent = (id) => async (dispatch) => {
@@ -181,7 +285,7 @@ export const currentAgent = (id) => async (dispatch) => {
   };
   dispatch({ type: LOAD_DATA });
   try {
-    let { data } = await axios.get(`api/agent/profil/${id}`, config);
+    let { data } = await axios.get(`api/agent/profil`, config);
     dispatch({ type: CURRENT_AGENT, payload: data });
   } catch (error) {
     dispatch({ type: FAIL_DATA, payload: error.response.data });
@@ -207,20 +311,102 @@ export const onecategory = (idcategory) => async (dispatch) => {
     dispatch({ type: FAIL_DATA, payload: error.response.data });
   }
 };
-
-/******************************************************** Clients  ********************************************************/
-
-export const getdemandeclient = () => async (dispatch) => {
+export const editCurrentAgent = (editAgent) => async (dispatch) => {
   const config = {
     headers: {
       authorization: localStorage.getItem("token"),
     },
   };
-  dispatch({ type: LOAD_DATA });
   try {
-    let { data } = await axios.get("/api/user/demande/", config);
-    dispatch({ type: GET_DEMANDE_CLIENT, payload: data });
+    await axios.put(`/api/agent/profil`, editAgent, config);
+    dispatch(currentAgent());
   } catch (error) {
-    dispatch({ type: FAIL_DATA, payload: error.response });
+    dispatch({ type: FAIL_DATA, payload: error.response.data });
+  }
+};
+
+export const getdemandeAgent = () => async (dispatch) => {
+  const config = {
+    headers: {
+      authorization: localStorage.getItem("token"),
+    },
+  };
+  dispatch({ type: LOAD_DEMANDE });
+  try {
+    let { data } = await axios.get(`/api/agent/demande`, config);
+    dispatch({ type: GET_AGENT_DEMANDES, payload: data });
+  } catch (error) {
+    dispatch({ type: FAIL_DEMANDE, payload: error.response });
+  }
+};
+
+export const getcommentAgent = () => async (dispatch) => {
+  const config = {
+    headers: {
+      authorization: localStorage.getItem("token"),
+    },
+  };
+  dispatch({ type: LOAD_COMMENT });
+  try {
+    let { data } = await axios.get("/api/agent/comment", config);
+    dispatch({ type: GET_AGENT_COMMENTS, payload: data });
+  } catch (error) {
+    dispatch({ type: FAIL_COMMENT, payload: error.response });
+  }
+};
+
+export const editdemande = (iddemande, editDemande) => async (dispatch) => {
+  const config = {
+    headers: {
+      authorization: localStorage.getItem("token"),
+    },
+  };
+  try {
+    await axios.put(`/api/agent/demande/${iddemande}`, editDemande, config);
+    dispatch(getdemandeAgent());
+  } catch (error) {
+    dispatch({ type: FAIL_DEMANDE, payload: error.response.data });
+  }
+};
+
+export const deleteDemandeAgent = (iddemande) => async (dispatch) => {
+  const config = {
+    headers: {
+      authorization: localStorage.getItem("token"),
+    },
+  };
+  try {
+    await axios.delete(`/api/agent/demande/${iddemande}`, config);
+    dispatch(getdemandeAgent());
+  } catch (error) {
+    dispatch({ type: FAIL_DEMANDE, payload: error.response.data });
+  }
+};
+
+export const editcommentagent = (idcomment, isVerfied) => async (dispatch) => {
+  const config = {
+    headers: {
+      authorization: localStorage.getItem("token"),
+    },
+  };
+  try {
+    await axios.put(`/api/agent/comment/${idcomment}`, isVerfied, config);
+    dispatch(getcommentAgent());
+  } catch (error) {
+    dispatch({ type: FAIL_COMMENT, payload: error.response.data });
+  }
+};
+
+export const deleteCommentAgent = (iddemande) => async (dispatch) => {
+  const config = {
+    headers: {
+      authorization: localStorage.getItem("token"),
+    },
+  };
+  try {
+    await axios.delete(`/api/agent/comment/${iddemande}`, config);
+    dispatch(getcommentAgent());
+  } catch (error) {
+    dispatch({ type: FAIL_COMMENT, payload: error.response.data });
   }
 };

@@ -1,0 +1,28 @@
+.DemandeHeaderContainer {
+  width: 100%;
+  padding: 1%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.DemandeHeaderContent {
+  width: 19%;
+  background-color: #131313;
+  box-shadow: 0 10px 20px -10px rgba(0, 0, 0, 0.75);
+  padding: 2%;
+  margin: 1%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.DemandeHeaderContentTitle {
+  font-size: 14px;
+  color: #efa51f;
+  margin-bottom: 15px;
+}
+
+.DemandeHeaderContentNumber {
+  font-size: 18px;
+}

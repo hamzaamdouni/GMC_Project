@@ -3,7 +3,7 @@ import "./ProfilModal.css";
 import ProfilImage from "../../../Assets/User/profil.jpg";
 import DemandeImage from "../../../Assets/User/sendrequest.svg";
 
-import { AiFillCloseCircle, AiFillLike } from "react-icons/ai";
+import { AiFillCloseCircle } from "react-icons/ai";
 import { FaMapMarkedAlt, FaUserGraduate } from "react-icons/fa";
 import { IoIosMail } from "react-icons/io";
 import {
@@ -61,8 +61,6 @@ const ProfilModal = ({ setModalIsOpen, idagent }) => {
   const verifiedComment = useSelector(
     (state) => state.visiteurReducer.verifiedComment
   );
-  const user = useSelector((state) => state.visiteurReducer.user);
-
   /*-----------------------------  Ajouter un commentaire   ----------------------------- */
   const handleComment = (e) => {
     setNewComment({ ...newComment, [e.target.name]: e.target.value });

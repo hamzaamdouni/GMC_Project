@@ -5,13 +5,16 @@ import SearchDropdown from "../../Components/ServicesElements/SearchDropdown/Sea
 import AgentCard from "../../Components/ServicesElements/Agent Card/AgentCard";
 import "./ServicesPage.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getallagents, getCategory } from "../../JS/actions/visiteur";
+import {
+  getallagentCategory,
+  getallagents,
+  getallagentService,
+  getCategory,
+} from "../../JS/actions/visiteur";
 import ProfilModal from "../../Components/ServicesElements/Profil Agent Modal/ProfilModal";
+import Loading from "../../Components/Loading/Loading";
 
 const ServicesPage = () => {
-  const isload = useSelector((state) => state.visiteurReducer.isload);
-  const agents = useSelector((state) => state.visiteurReducer.agents);
-
   const [service, setService] = useState("-- Services--");
   const [category, setCategory] = useState("-- Categorys--");
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -28,8 +31,17 @@ const ServicesPage = () => {
   useEffect(() => {
     if (service === "-- Services--") {
       dispatch(getallagents());
+    } else if (category === "-- Categorys--") {
+      dispatch(getallagentService(service));
+    } else {
+      dispatch(getallagentCategory(category));
     }
-  }, [dispatch, service]);
+  }, [dispatch, service, category]);
+
+  const isloadagents = useSelector(
+    (state) => state.visiteurReducer.isloadagents
+  );
+  const agents = useSelector((state) => state.visiteurReducer.agents);
 
   return (
     <div className="ServicesPage">
@@ -42,15 +54,17 @@ const ServicesPage = () => {
           category={category}
         />
         <div className="AgentCards">
-          {isload
-            ? null
-            : agents.map((oneAgent) => (
-                <AgentCard
-                  oneAgent={oneAgent}
-                  setModalIsOpen={setModalIsOpen}
-                  setIdagent={setIdagent}
-                />
-              ))}
+          {isloadagents ? (
+            <Loading />
+          ) : (
+            agents.map((oneAgent) => (
+              <AgentCard
+                oneAgent={oneAgent}
+                setModalIsOpen={setModalIsOpen}
+                setIdagent={setIdagent}
+              />
+            ))
+          )}
         </div>
       </div>
       {modalIsOpen && (

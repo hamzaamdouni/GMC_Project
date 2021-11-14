@@ -3,10 +3,10 @@ const agent = require("../models/agent");
 const demande = require("../models/demande");
 const service = require("../models/service");
 const category = require("../models/category");
+const comment = require("../models/comment");
 
 const bcrypt = require("bcrypt");
 var jwt = require("jsonwebtoken");
-const comment = require("../models/comment");
 
 /* * * * * * * * * * * * * * * * * * *  *     Gere  profil Client    * * * * * * * * * * * * * * * * * * *  */
 
@@ -28,9 +28,6 @@ exports.updateUser = async (request, response) => {
   try {
     const token = request.headers["authorization"];
     const decoded = jwt.verify(token, process.env.SECRET_KEY);
-    const saltRounds = 10;
-    const hashedpassword = bcrypt.hashSync(request.body.password, saltRounds);
-    request.body.password = hashedpassword;
     await user.updateOne({ _id: decoded._id }, { $set: { ...request.body } });
     response.send({ msg: "updated succ" });
   } catch (error) {
@@ -43,7 +40,15 @@ exports.deleteUser = async (request, response) => {
   try {
     const token = request.headers["authorization"];
     const decoded = jwt.verify(token, process.env.SECRET_KEY);
-    let result = await user.deleteOne({ _id: decoded._id });
+    let resultuser = await user.deleteOne({ _id: decoded._id });
+    let resultcomment = await comment.deleteMany({ id_user: decoded._id });
+    let resultdemande = await demande.deleteMany({ id_user: decoded._id });
+    const findAgent = await agent.findOne({ id_agent: decoded._id });
+    if (findAgent) {
+      let resultcomment = await comment.deleteMany({ id_agent: findAgent._id });
+      let resultdemande = await demande.deleteMany({ id_agent: findAgent._id });
+    }
+
     response.send({ msg: "deleted succ" });
   } catch (error) {
     response.status(400).send({ msg: "can not delete" });
@@ -72,7 +77,11 @@ exports.getAllAgentService = async (request, response) => {
     const { agentservice } = request.params;
     const OneService = await service.findOne({ nom: agentservice });
     const { _id } = OneService;
-    const AgentList = await agent.find({ id_service: _id });
+    const AgentList = await agent
+      .find({ id_service: _id })
+      .populate("id_agent")
+      .populate("id_service")
+      .populate("id_category");
     response.send({ msg: "get all agent by service", AgentList });
   } catch (error) {
     console.log(error);
@@ -86,7 +95,11 @@ exports.getAllAgentCategory = async (request, response) => {
     const { agentcategory } = request.params;
     const OneCategory = await category.findOne({ nom: agentcategory });
     const { _id } = OneCategory;
-    const AgentList = await agent.find({ id_category: _id });
+    const AgentList = await agent
+      .find({ id_category: _id })
+      .populate("id_agent")
+      .populate("id_service")
+      .populate("id_category");
     response.send({ msg: "get all agent by category", AgentList });
   } catch (error) {
     console.log(error);
@@ -140,7 +153,6 @@ exports.SendRequestDemande = async (request, response) => {
     await newRequest.save();
     response.send({ msg: "register demande seccess", demande: newRequest });
   } catch (error) {
-    console.log(error);
     response.status(400).send({ msg: "can not register demande", error });
   }
 };
@@ -182,7 +194,18 @@ exports.DeleteRequestDemande = async (request, response) => {
 };
 
 /* * * * * * * * * * * * * * * * * * *  *     Gere  commentaire    * * * * * * * * * * * * * * * * * * *  */
-
+// Afficher les commentaires
+exports.GetComments = async (request, response) => {
+  try {
+    const token = request.headers["authorization"];
+    const decoded = jwt.verify(token, process.env.SECRET_KEY);
+    const { _id } = decoded;
+    const findcomment = await comment.find({ id_user: _id });
+    response.send({ msg: "Get all comments ", findcomment });
+  } catch (error) {
+    response.status(400).send({ msg: "can not send ", error });
+  }
+};
 // Ajouter un commentaire
 exports.AddComment = async (request, response) => {
   try {

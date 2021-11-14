@@ -15,6 +15,7 @@ const {
   getAllAgent,
   getOneAgent,
   GetCommentVerified,
+  GetComments,
 } = require("../controllers/user.controllers");
 const isAuth = require("../middlewares/isAuth");
 
@@ -37,15 +38,13 @@ router.delete("/profil", isAuth, deleteUser);
 router.get("/allagents", isAuth, getAllAgent);
 
 // Afficher Les Agent par service
-router.get("/agent/service/:service", isAuth, getAllAgentService);
+router.get("/agents/service/:agentservice", isAuth, getAllAgentService);
 
 // Afficher Les Agent par category
-router.get("/agent/category/:category", isAuth, getAllAgentCategory);
+router.get("/agents/category/:agentcategory", isAuth, getAllAgentCategory);
 
 // Afficher Un Agent
 router.get("/agent/:idagent", isAuth, getOneAgent);
-
-// Noter un agent
 
 /* * * * * * * * * * * * * * * * * * *  *     Gere   demande    * * * * * * * * * * * * * * * * * * *  */
 
@@ -62,6 +61,9 @@ router.put("/demande/:iddemande", isAuth, UpdateRequestDemande);
 router.delete("/demande/:iddemande", isAuth, DeleteRequestDemande);
 
 /* * * * * * * * * * * * * * * * * * *  *     Gere  commentaire    * * * * * * * * * * * * * * * * * * *  */
+
+// Afficher les commentaires
+router.get("/comment", isAuth, GetComments);
 
 // Ajouter un commentaire
 router.post("/comment", isAuth, AddComment);

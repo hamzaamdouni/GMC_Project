@@ -1,76 +1,123 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
+
 import "./ProfilUser.css";
-import Navbar from "../../Components/ServicesElements/Navbar/Navbar";
 
 import ProfilImage from "../../Assets/User/profil.jpg";
 
+import { AiOutlineClose, AiFillCaretUp, AiFillCaretDown } from "react-icons/ai";
 import { FaUserCheck, FaMapMarkedAlt, FaUserGraduate } from "react-icons/fa";
 import { IoIosMail } from "react-icons/io";
 import { BsFillTelephoneFill } from "react-icons/bs";
 import { MdWork } from "react-icons/md";
-import { AiFillCaretDown, AiFillCaretUp, AiOutlineClose } from "react-icons/ai";
 import { GiCheckMark } from "react-icons/gi";
 
 import {
   currentAgent,
-  getdemandeclient,
+  deleteUser,
+  editCurrentAgent,
+  editCurrentUser,
+  getcommentAgent,
+  getcommentUser,
+  getdemandeAgent,
+  getdemandeUser,
   onecategory,
   oneservice,
 } from "../../JS/actions/visiteur";
 
-const ProfilUser = () => {
-  const [isOpen, setIsOpen] = useState(true);
-  const [isActive, setIsActive] = useState("DemandeRecu");
-  const [isModify, setisModify] = useState(true);
+import Navbar from "../../Components/ServicesElements/Navbar/Navbar";
+import DemandeHeader from "../../Components/ProfilUser/DemandeHeader/DemandeHeader";
+import DemandeBody from "../../Components/ProfilUser/DemandeBody/DemandeBody";
+import CommentAgent from "../../Components/ProfilUser/CommentAgent/CommentAgent";
 
-  const handleModify = () => {
-    setisModify(!isModify);
-  };
-  const handleActive = (e) => {
-    setIsActive(e.target.value);
-  };
-  const handleOpen = () => {
-    setIsOpen(!isOpen);
-  };
+const ProfilUser = () => {
+  const history = useHistory();
+  const dispatch = useDispatch();
 
   const user = useSelector((state) => state.visiteurReducer.user);
   const agent = useSelector((state) => state.visiteurReducer.agent);
   const service = useSelector((state) => state.visiteurReducer.service);
   const category = useSelector((state) => state.visiteurReducer.category);
+  const demandesUser = useSelector(
+    (state) => state.visiteurReducer.demandesUser
+  );
+  const demandesAgent = useSelector(
+    (state) => state.visiteurReducer.demandesAgent
+  );
+  const commentsUser = useSelector(
+    (state) => state.visiteurReducer.commentsUser
+  );
+  const commentsAgent = useSelector(
+    (state) => state.visiteurReducer.commentsAgent
+  );
+
   const id = user._id;
   const idService = agent.id_service;
   const idcategory = agent.id_category;
 
-  console.log("Profiluser", id);
-  const dispatch = useDispatch();
+  const [isActive, setIsActive] = useState("DemandeRecu");
+  const [isModify, setisModify] = useState(true);
+  const [editUser, setEditUser] = useState();
+  const [editAgent, setEditAgent] = useState();
+
+  const handleActive = (e) => {
+    setIsActive(e.target.value);
+  };
+
+  const handleDeleteUser = () => {
+    let result = window.confirm("are you sure to delete that?");
+    if (result) {
+      dispatch(deleteUser(history));
+    }
+  };
+
+  const handleEditUser = (e) => {
+    setEditUser({ ...editUser, [e.target.name]: e.target.value });
+  };
+
+  const handleEditAgent = (e) => {
+    setEditAgent({ ...editAgent, [e.target.name]: e.target.value });
+  };
+
+  const handleModify = () => {
+    setisModify(!isModify);
+    setEditUser(user);
+    setEditAgent(agent);
+  };
+
+  const handleModifyUser = () => {
+    dispatch(editCurrentUser(editUser));
+    if (user.role === "Agent") {
+      dispatch(editCurrentAgent(editAgent));
+    }
+    setisModify(!isModify);
+  };
 
   useEffect(() => {
     if (user.role === "Agent") {
       dispatch(currentAgent(id));
-    }
-  }, [dispatch, id]);
-
-  useEffect(() => {
-    if (user.role === "Agent") {
       dispatch(oneservice(idService));
-    }
-  }, [dispatch, idService]);
-
-  useEffect(() => {
-    if (user.role === "Agent") {
       dispatch(onecategory(idcategory));
     }
-  }, [dispatch, idcategory]);
+  }, [dispatch, id, idService, idcategory, user.role]);
 
   useEffect(() => {
-    dispatch(getdemandeclient());
-  }, [dispatch]);
+    dispatch(getdemandeUser());
+    dispatch(getcommentUser());
+
+    if (user.role === "Agent") {
+      dispatch(getdemandeAgent());
+      dispatch(getcommentAgent());
+    }
+  }, [dispatch, isActive, user.role]);
 
   return (
     <div className="ProfilUser">
+      {/***************************************** NavBar *****************************************/}
       <Navbar />
       <div className="ProfilUserContainer">
+        {/***************************************** Partie Information user *****************************************/}
         <div className="InfoContainer">
           <div className="ImageCentent">
             <img src={ProfilImage} alt="" className="ProfilImg" />
@@ -109,14 +156,16 @@ const ProfilUser = () => {
                     type="text"
                     required
                     name="nom"
-                    value={user.nom}
+                    onChange={handleEditUser}
+                    value={editUser.nom}
                   />{" "}
                   <input
                     className="Informationinput"
                     type="text"
                     required
                     name="prenom"
-                    value={user.prenom}
+                    onChange={handleEditUser}
+                    value={editUser.prenom}
                   />{" "}
                 </div>
               )}
@@ -131,7 +180,8 @@ const ProfilUser = () => {
                   type="text"
                   required
                   name="adress"
-                  value={user.adress}
+                  onChange={handleEditUser}
+                  value={editUser.adress}
                 />
               )}
             </div>
@@ -145,7 +195,8 @@ const ProfilUser = () => {
                   type="email"
                   required
                   name="email"
-                  value={user.email}
+                  onChange={handleEditUser}
+                  value={editUser.email}
                 />
               )}
             </div>
@@ -159,7 +210,8 @@ const ProfilUser = () => {
                   type="number"
                   required
                   name="phone"
-                  value={user.phone}
+                  onChange={handleEditUser}
+                  value={editUser.phone}
                 />
               )}
             </div>
@@ -176,7 +228,8 @@ const ProfilUser = () => {
                     type="text"
                     required
                     name="calification"
-                    value={agent.calification}
+                    onChange={handleEditAgent}
+                    value={editAgent.calification}
                   />
                 )}
               </div>
@@ -189,8 +242,9 @@ const ProfilUser = () => {
                     class="input"
                     type="number"
                     required
-                    name="calification"
-                    value={agent.experience}
+                    name="experience"
+                    onChange={handleEditAgent}
+                    value={editAgent.experience}
                   />
                 )}
               </div>
@@ -202,11 +256,15 @@ const ProfilUser = () => {
               <button className="ModifBtn" onClick={handleModify}>
                 Modifier
               </button>
-              <button className="DeleteBtn">Effacer</button>
+              <button className="DeleteBtn" onClick={handleDeleteUser}>
+                Effacer
+              </button>
             </div>
           ) : (
             <div className="ButtonCentent">
-              <button className="ModifBtn">Modifier</button>
+              <button className="ModifBtn" onClick={handleModifyUser}>
+                Enregistrer
+              </button>
               <button className="DeleteBtn" onClick={handleModify}>
                 Annuler
               </button>
@@ -214,79 +272,54 @@ const ProfilUser = () => {
           )}
         </div>
 
+        {/***************************************** Partie Gerer les demandes et commentaires *****************************************/}
         <div className="DiverContainer">
-          {/* {isActive === "MesDemande" && (
-            <div className="DemandeContainer">
-              <div className="DemandeContainerHeader">
-                <span className="Title"> Liste des Demandes </span>
-                {isOpen ? (
-                  <AiFillCaretDown onClick={handleOpen} className="Icon" />
-                ) : (
-                  <AiFillCaretUp onClick={handleOpen} className="Icon" />
-                )}
-              </div>
-              {isOpen ? (
-                <div className="DemandeContainerBody">
-                  <div className="DemandeContent">
-                    <div className="DemandeContentHead">
-                      <div>
-                        <span className="HeadNom">Hamza Amdouni</span>
-                        <span className="HeadAdress"> - Hammam Lif</span>
-                      </div>
-                      <div>
-                        <AiOutlineClose className="HeadRefuser" />
-                        <GiCheckMark className="HeadAccepter" />
-                      </div>
-                    </div>
-
-                    <div className="DemandeContentBody">
-                      <span className="BodyDate"> 26/12/1990</span>
-                      <span className="BodyDescription">
-                        {" "}
-                        j'ai besoin d'une preparation demain
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              ) : null}
-            </div>
-          )} */}
-
+          {/***************************************** Boutons des choix demande ou commentaire *****************************************/}
           <div className="DiverNavContainer">
             <button
               className="DiverNavBtn"
               value="DemandeRecu"
               onClick={handleActive}
             >
-              Demande Reçu
+              Demande Reçu {`( ${demandesAgent.length} )`}
             </button>
             <button
               className="DiverNavBtn"
               value="CommentRecu"
               onClick={handleActive}
             >
-              Commentaire Reçu
+              Commentaire Reçu {`( ${commentsAgent.length} )`}
             </button>
             <button
               className="DiverNavBtn"
               value="MesDemande"
               onClick={handleActive}
             >
-              Mes Demande
+              Mes Demande {`( ${demandesUser.length} )`}
             </button>
             <button
               className="DiverNavBtn"
-              value="Mes Comment"
+              value="MesComment"
               onClick={handleActive}
             >
-              Mes Commentaire
+              Mes Commentaire {`( ${commentsUser.length} )`}
             </button>
           </div>
+
           <div className="DiverContent">
-            {isActive === "DemandeRecu" && <h1>DemandeRecu</h1>}
-            {isActive === "CommentRecu" && <h1>CommentRecu</h1>}
+            {isActive === "DemandeRecu" && (
+              <>
+                <DemandeHeader demandesAgent={demandesAgent} />
+                <DemandeBody demandesAgent={demandesAgent} />
+              </>
+            )}
+            {isActive === "CommentRecu" && (
+              <>
+                <CommentAgent commentsAgent={commentsAgent} />
+              </>
+            )}
             {isActive === "MesDemande" && <h1>MesDemande</h1>}
-            {isActive === "Mes Comment" && <h1>Mes Comment</h1>}
+            {isActive === "MesComment" && <h1>Mes Comment</h1>}
           </div>
         </div>
       </div>

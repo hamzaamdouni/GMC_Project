@@ -29,7 +29,7 @@ const SearchDropdown = ({ setService, service, setCategory, category }) => {
         <div className="custom_selectSearch">
           <select name="service" onInput={handleService}>
             {service === "-- Services--" && (
-              <option value="-- Toutes les service--">{service}</option>
+              <option value={"-- Toutes les service--"}>{service}</option>
             )}
             {isload
               ? null

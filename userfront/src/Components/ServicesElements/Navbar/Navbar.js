@@ -19,7 +19,7 @@ const Navbar = () => {
         <Loading />
       ) : user ? (
         <nav className="navbarContainer">
-          <Link to="/">
+          <Link to="/services">
             <img src={Logo} alt="logo" className="NavImg" />
           </Link>
           <div className="ProfileContent">

@@ -40,12 +40,12 @@ export const register = (newUser) => async (dispatch) => {
   }
 };
 
-export const login = (user, hisory) => async (dispatch) => {
+export const login = (user, history) => async (dispatch) => {
   dispatch({ type: LOAD_DATA });
   try {
     let { data } = await axios.post("/api/visiteur/login", user);
     dispatch({ type: LOGIN_USER, payload: data });
-    hisory.push("/services");
+    history.push("/services");
   } catch (error) {
     dispatch({ type: FAIL_DATA, payload: error.response.data });
   }
@@ -273,6 +273,34 @@ export const getcommentUser = () => async (dispatch) => {
     dispatch({ type: GET_USER_COMMENTS, payload: data });
   } catch (error) {
     dispatch({ type: FAIL_COMMENT, payload: error.response });
+  }
+};
+
+export const deleteDemandeUser = (iddemande) => async (dispatch) => {
+  const config = {
+    headers: {
+      authorization: localStorage.getItem("token"),
+    },
+  };
+  try {
+    await axios.delete(`/api/user/demande/${iddemande}`, config);
+    dispatch(getdemandeUser());
+  } catch (error) {
+    dispatch({ type: FAIL_DEMANDE, payload: error.response.data });
+  }
+};
+
+export const editdemandeUser = (iddemande, editDemande) => async (dispatch) => {
+  const config = {
+    headers: {
+      authorization: localStorage.getItem("token"),
+    },
+  };
+  try {
+    await axios.put(`/api/user/demande/${iddemande}`, editDemande, config);
+    dispatch(getdemandeUser());
+  } catch (error) {
+    dispatch({ type: FAIL_DEMANDE, payload: error.response.data });
   }
 };
 /******************************************************** agent  ********************************************************/

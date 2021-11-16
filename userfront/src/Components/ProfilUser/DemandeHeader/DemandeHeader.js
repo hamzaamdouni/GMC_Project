@@ -1,22 +1,14 @@
 import React from "react";
 import "./DemandeHeader.css";
 
-const DemandeHeader = ({ demandesAgent }) => {
-  const Attend = demandesAgent.filter(
-    (demande) => demande.etat === "En attend"
-  );
+const DemandeHeader = ({ demandes }) => {
+  const Attend = demandes.filter((demande) => demande.etat === "En attend");
 
-  const Accepted = demandesAgent.filter(
-    (demande) => demande.etat === "Accepter"
-  );
+  const Accepted = demandes.filter((demande) => demande.etat === "Accepter");
 
-  const Refused = demandesAgent.filter((demande) => demande.etat === "Refuser");
-  const Treated = demandesAgent.filter(
-    (demande) => demande.statut === "Traité"
-  );
-  const NotTreated = demandesAgent.filter(
-    (demande) => demande.statut === "En cour"
-  );
+  const Refused = demandes.filter((demande) => demande.etat === "Refuser");
+  const Treated = demandes.filter((demande) => demande.statut === "Traité");
+  const NotTreated = demandes.filter((demande) => demande.statut === "En cour");
   return (
     <div className="DemandeHeaderContainer">
       <div className="DemandeHeaderContent">

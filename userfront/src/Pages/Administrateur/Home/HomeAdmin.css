@@ -1,0 +1,32 @@
+.HomeAdminContainer {
+  background-color: #000;
+  color: #fff;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+/*------------------------------------- HomeAdminSidebarContainer -------------------------------------*/
+
+.HomeAdminSidebarContainer {
+  max-width: 15%;
+  height: 100%;
+  background-color: #0a0a0a;
+}
+
+.HomeAdminContent {
+  width: 85%;
+  height: 100%;
+  background-color: #131313;
+}
+
+/*------------------------------------- HomeAdminContentHeader -------------------------------------*/
+.HomeAdminContentHeader {
+  width: 100%;
+  height: 30%;
+}
+/*------------------------------------- HomeAdminContentBody -------------------------------------*/
+.HomeAdminContentBody {
+  width: 100%;
+  height: 70%;
+}

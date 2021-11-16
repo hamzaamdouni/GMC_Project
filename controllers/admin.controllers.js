@@ -230,8 +230,7 @@ exports.deleteCategory = async (request, response) => {
 // get Categorys for one service (admin)
 exports.getCategory = async (request, response) => {
   try {
-    const { id } = request.params;
-    const findCategory = await category.find({ id_service: id });
+    const findCategory = await category.find();
     response.send({ msg: "get the Service", findCategory });
   } catch (error) {
     response.status(400).send({ msg: "can not get" });
@@ -308,8 +307,7 @@ exports.getAllService = async (request, response) => {
 // Afficher les reclamation par etat (admin)
 exports.getReclamation = async (request, response) => {
   try {
-    const { etat } = request.params;
-    const findReclamation = await reclamation.find({ etat: etat });
+    const findReclamation = await reclamation.find();
     response.send({ msg: "get All Reclamation", findReclamation });
   } catch (error) {
     response.status(400).send({ msg: "can not get" });

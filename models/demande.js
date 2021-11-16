@@ -12,6 +12,16 @@ const demandeSchema = new Schema({
     ref: "agent",
     requirid: true,
   },
+  id_service: {
+    type: Schema.Types.ObjectId,
+    ref: "service",
+    requirid: true,
+  },
+  id_category: {
+    type: Schema.Types.ObjectId,
+    ref: "category",
+    requirid: true,
+  },
   message: {
     type: String,
     required: true,

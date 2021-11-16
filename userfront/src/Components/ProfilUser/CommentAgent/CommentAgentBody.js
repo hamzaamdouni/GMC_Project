@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import "./CommentAgent.css";
-import { MdVerified, MdDeleteForever, MdCheckCircle } from "react-icons/md";
-import { SiVerizon } from "react-icons/si";
+import { MdVerified, MdDeleteForever } from "react-icons/md";
 import { GiCheckMark } from "react-icons/gi";
 import {
   deleteCommentAgent,

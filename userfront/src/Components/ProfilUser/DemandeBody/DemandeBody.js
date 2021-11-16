@@ -1,6 +1,4 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { editdemande } from "../../../JS/actions/visiteur";
+import React from "react";
 import Clumn from "./Clumn";
 import "./DemandeBody.css";
 

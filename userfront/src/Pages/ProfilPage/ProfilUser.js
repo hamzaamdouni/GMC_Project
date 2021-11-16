@@ -6,12 +6,10 @@ import "./ProfilUser.css";
 
 import ProfilImage from "../../Assets/User/profil.jpg";
 
-import { AiOutlineClose, AiFillCaretUp, AiFillCaretDown } from "react-icons/ai";
 import { FaUserCheck, FaMapMarkedAlt, FaUserGraduate } from "react-icons/fa";
 import { IoIosMail } from "react-icons/io";
 import { BsFillTelephoneFill } from "react-icons/bs";
 import { MdWork } from "react-icons/md";
-import { GiCheckMark } from "react-icons/gi";
 
 import {
   currentAgent,
@@ -30,6 +28,8 @@ import Navbar from "../../Components/ServicesElements/Navbar/Navbar";
 import DemandeHeader from "../../Components/ProfilUser/DemandeHeader/DemandeHeader";
 import DemandeBody from "../../Components/ProfilUser/DemandeBody/DemandeBody";
 import CommentAgent from "../../Components/ProfilUser/CommentAgent/CommentAgent";
+import DemandesUser from "../../Components/ProfilUser/DemandesUser/DemandesUser";
+import CommentsUser from "../../Components/ProfilUser/CommentsUser/CommentsUser";
 
 const ProfilUser = () => {
   const history = useHistory();
@@ -276,20 +276,26 @@ const ProfilUser = () => {
         <div className="DiverContainer">
           {/***************************************** Boutons des choix demande ou commentaire *****************************************/}
           <div className="DiverNavContainer">
-            <button
-              className="DiverNavBtn"
-              value="DemandeRecu"
-              onClick={handleActive}
-            >
-              Demande Reçu {`( ${demandesAgent.length} )`}
-            </button>
-            <button
-              className="DiverNavBtn"
-              value="CommentRecu"
-              onClick={handleActive}
-            >
-              Commentaire Reçu {`( ${commentsAgent.length} )`}
-            </button>
+            {user.role === "Agent" && (
+              <>
+                {" "}
+                <button
+                  className="DiverNavBtn"
+                  value="DemandeRecu"
+                  onClick={handleActive}
+                >
+                  Demande Reçu {`( ${demandesAgent.length} )`}
+                </button>
+                <button
+                  className="DiverNavBtn"
+                  value="CommentRecu"
+                  onClick={handleActive}
+                >
+                  Commentaire Reçu {`( ${commentsAgent.length} )`}
+                </button>
+              </>
+            )}
+
             <button
               className="DiverNavBtn"
               value="MesDemande"
@@ -309,17 +315,27 @@ const ProfilUser = () => {
           <div className="DiverContent">
             {isActive === "DemandeRecu" && (
               <>
-                <DemandeHeader demandesAgent={demandesAgent} />
+                <DemandeHeader demandes={demandesAgent} />
                 <DemandeBody demandesAgent={demandesAgent} />
               </>
             )}
+
             {isActive === "CommentRecu" && (
               <>
                 <CommentAgent commentsAgent={commentsAgent} />
               </>
             )}
-            {isActive === "MesDemande" && <h1>MesDemande</h1>}
-            {isActive === "MesComment" && <h1>Mes Comment</h1>}
+            {isActive === "MesDemande" && (
+              <>
+                <DemandeHeader demandes={demandesUser} />
+                <DemandesUser demandesUser={demandesUser} />
+              </>
+            )}
+            {isActive === "MesComment" && (
+              <>
+                <CommentsUser commentsUser={commentsUser} />
+              </>
+            )}
           </div>
         </div>
       </div>

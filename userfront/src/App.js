@@ -12,6 +12,9 @@ import ProfilUser from "./Pages/ProfilPage/ProfilUser";
 
 import "./App.css";
 import { current, getservices } from "./JS/actions/visiteur";
+import LoginAdmin from "./Pages/Administrateur/Login/LoginAdmin";
+import HomeAdmin from "./Pages/Administrateur/Home/HomeAdmin";
+import PrivteRouteAdmin from "./router/PrivteRouteAdmin";
 
 function App() {
   const dispatch = useDispatch();
@@ -34,6 +37,8 @@ function App() {
         <Route path="/register" component={Register} />
         <PrivteRoute path="/services" component={ServicesPage} />
         <PrivteRoute path="/profil" component={ProfilUser} />
+        <Route exact path="/admin" component={LoginAdmin} />
+        <PrivteRouteAdmin path="/admin/home" component={HomeAdmin} />
         <Route path="/*" component={Error} />
       </Switch>
     </div>

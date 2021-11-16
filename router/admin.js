@@ -86,7 +86,7 @@ router.put("/category/:id", isAuthAdmin, updateCategory);
 router.delete("/category/:id", isAuthAdmin, deleteCategory);
 
 // get Categorys for one service (admin)
-router.get("/category/:id", isAuthAdmin, getCategory);
+router.get("/category ", isAuthAdmin, getCategory);
 
 /* * * * * * * * * * * * * * * * * * *  * * *     Gere Service    * * * * * * * * * * * * * * * * * * * * *  */
 
@@ -104,7 +104,7 @@ router.get("/allservice", isAuthAdmin, getAllService);
 
 /* * * * * * * * * * * * * * * * * * *  * * *     Gere Reclamation     * * * * * * * * * * * * * * * * * * * * *  */
 // Afficher les reclamation par etat (admin)
-router.get("/reclamation/:etat", isAuthAdmin, getReclamation);
+router.get("/reclamation", isAuthAdmin, getReclamation);
 
 // traiter une reclamation (admin)
 router.put("/reclamation/:id", isAuthAdmin, updateReclamation);

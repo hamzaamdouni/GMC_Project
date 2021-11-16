@@ -23,6 +23,11 @@ import {
 import Loading from "../../Loading/Loading";
 
 const ProfilModal = ({ setModalIsOpen, idagent }) => {
+  const isload = useSelector((state) => state.visiteurReducer.isload);
+  const oneagent = useSelector((state) => state.visiteurReducer.oneagent);
+  const verifiedComment = useSelector(
+    (state) => state.visiteurReducer.verifiedComment
+  );
   /*-----------------------------     ----------------------------- */
   const [newComment, setNewComment] = useState({
     id_agent: idagent,
@@ -30,6 +35,8 @@ const ProfilModal = ({ setModalIsOpen, idagent }) => {
   });
   const [isDemande, setIsDemande] = useState(false);
   const [newDemande, setNewDemande] = useState({
+    id_service: "",
+    id_category: "",
     id_agent: idagent,
     message: "",
     date: "",
@@ -55,12 +62,6 @@ const ProfilModal = ({ setModalIsOpen, idagent }) => {
     dispatch(getverifiedcomment(idagent));
   }, [dispatch, idagent]);
 
-  /*-----------------------------     ----------------------------- */
-  const isload = useSelector((state) => state.visiteurReducer.isload);
-  const oneagent = useSelector((state) => state.visiteurReducer.oneagent);
-  const verifiedComment = useSelector(
-    (state) => state.visiteurReducer.verifiedComment
-  );
   /*-----------------------------  Ajouter un commentaire   ----------------------------- */
   const handleComment = (e) => {
     setNewComment({ ...newComment, [e.target.name]: e.target.value });
@@ -71,17 +72,29 @@ const ProfilModal = ({ setModalIsOpen, idagent }) => {
     setNewComment({
       id_agent: idagent,
       message: "",
+      etat: "",
+      statut: "",
     });
   };
   /*-----------------------------  Ajouter une demande   ----------------------------- */
   const handleDemande = (e) => {
-    setNewDemande({ ...newDemande, [e.target.name]: e.target.value });
+    setNewDemande({
+      ...newDemande,
+      [e.target.name]: e.target.value,
+      id_category: oneagent.id_category._id,
+      id_service: oneagent.id_service._id,
+      id_agent: idagent,
+      etat: "En attend",
+      statut: "En attend",
+    });
   };
 
   const handleSubmitDemande = () => {
     dispatch(addDemande(newDemande));
     setNewDemande({
-      id_agent: idagent,
+      id_service: "",
+      id_category: "",
+      id_agent: "",
       message: "",
       date: "",
     });

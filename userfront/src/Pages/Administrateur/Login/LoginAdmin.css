@@ -1,0 +1,79 @@
+.LoginAdminContainer {
+  width: 100%;
+  height: 100vh;
+  background-color: #000;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.LoginAdminWraper {
+  width: 100%;
+  height: 100%;
+}
+
+.LoginAdminImg {
+  width: 100%;
+  height: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.LoginAdminImg img {
+  height: 70%;
+}
+
+.LoginAdminContent {
+  width: 100%;
+  height: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.LoginAdminContentInput {
+  display: flex;
+  margin-bottom: 4%;
+  align-items: center;
+  justify-content: center;
+}
+
+.LoginAdminContentInput .label {
+  width: 120px;
+  font-size: 16px;
+}
+
+.LoginAdminContentInput input {
+  width: 300px;
+  height: 30px;
+  font-size: 16px;
+  background-color: transparent;
+  border: 1px solid #222222;
+  outline: none;
+  color: #fff;
+  padding-left: 15px;
+}
+
+.LoginAdminContentInput input:focus {
+  border: 1px solid #efa51f;
+}
+
+.LoginAdminContentSubmit {
+  width: 100%;
+  height: 30px;
+  margin-top: 30px;
+}
+
+.LoginAdminContentSubmit input {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  color: #efa51f;
+  border: 1px solid #efa51f;
+  border-radius: 5px;
+}
+
+.LoginAdminContentSubmit input:hover {
+  border: 2px solid #efa51f;
+}

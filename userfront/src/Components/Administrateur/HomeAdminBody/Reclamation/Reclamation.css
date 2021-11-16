@@ -1,0 +1,62 @@
+.ReclamationContainer {
+  background-color: #000000;
+  width: 350px;
+  height: auto;
+  margin-bottom: 2%;
+  border-radius: 15px 0 15px 0;
+  box-shadow: 0 10px 20px -10px rgba(0, 0, 0, 0.75);
+}
+
+.ReclamationContainerHeader {
+  padding: 1%;
+  background-color: #1b1b1b;
+  border-radius: 15px 0 15px 0;
+  box-shadow: 0 10px 20px -10px rgba(0, 0, 0, 0.75);
+  display: flex;
+  flex-direction: column;
+}
+
+.ReclamationHeadercontent {
+  display: flex;
+  align-items: center;
+}
+.ReclamationContainerHeader .ReclamationNom {
+  margin: 5px 10px;
+  color: #efa51f;
+}
+
+.ReclamationContainerHeader .ReclamationEmail {
+  font-size: 14px;
+  margin: 5px 20px;
+}
+
+.ReclamationContainerBody {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  height: 200px;
+  overflow-y: auto;
+}
+
+.ReclamationContainerBody .ReclamationMessage {
+  width: 100%;
+  padding: 5px;
+}
+
+.ReclamationContainerBody .ReclamationButton {
+  width: 100%;
+  padding: 5%;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
+
+.IconVerification {
+  color: rgb(0, 0, 175);
+}
+
+.IconDelete {
+  color: rgb(155, 0, 0);
+}

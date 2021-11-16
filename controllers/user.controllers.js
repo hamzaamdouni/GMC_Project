@@ -133,7 +133,11 @@ exports.GetRequestDemande = async (request, response) => {
     const token = request.headers["authorization"];
     const decoded = jwt.verify(token, process.env.SECRET_KEY);
     const { _id } = decoded;
-    const finddemande = await demande.find({ id_user: _id });
+    const finddemande = await demande
+      .find({ id_user: _id })
+      .populate("id_agent")
+      .populate("id_category")
+      .populate("id_service");
     response.send({ msg: "Get all request ", finddemande });
   } catch (error) {
     response.status(400).send({ msg: "can not send ", error });
@@ -161,16 +165,9 @@ exports.SendRequestDemande = async (request, response) => {
 exports.UpdateRequestDemande = async (request, response) => {
   try {
     const { iddemande } = request.params;
-    const findDemande = await demande.findOne({ _id: iddemande });
-    if (findDemande == "En cour") {
-      await demande.updateOne(
-        { _id: findDemande._id },
-        { $set: { ...request.body } }
-      );
-      response.send({ msg: "updated succ" });
-    } else {
-      response.status(400).send({ msg: "Demande deja realiser" });
-    }
+
+    await demande.updateOne({ _id: iddemande }, { $set: { ...request.body } });
+    response.send({ msg: "updated succ" });
   } catch (error) {
     console.log(error);
     response.status(400).send({ msg: "can not update demande", error });
@@ -181,13 +178,8 @@ exports.UpdateRequestDemande = async (request, response) => {
 exports.DeleteRequestDemande = async (request, response) => {
   try {
     const { iddemande } = request.params;
-    const findDemande = await demande.findOne({ _id: iddemande });
-    if (findDemande == "En cour") {
-      let result = await deleteOne({ _id: iddemande });
-      response.send({ msg: "deleted succ" });
-    } else {
-      response.status(400).send({ msg: "Demande deja realiser" });
-    }
+    let result = await demande.deleteOne({ _id: iddemande });
+    response.send({ msg: "deleted succ" });
   } catch (error) {
     response.status(400).send({ msg: "can not delete" });
   }

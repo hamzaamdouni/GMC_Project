@@ -26,7 +26,6 @@ const router = express.Router();
 router.post(
   "/register",
   isAuth,
-  isAgent,
   RegisterAgentValidation(),
   Agentvalidation,
   RegisterAgent

@@ -47,7 +47,9 @@ export const login = (user, history) => async (dispatch) => {
     dispatch({ type: LOGIN_USER, payload: data });
     history.push("/services");
   } catch (error) {
-    dispatch({ type: FAIL_DATA, payload: error.response.data });
+    // dispatch({ type: FAIL_DATA, payload: error.response.data });
+    error.response.data.errors.map((el) => alert(el.msg));
+    // console.log(error);
   }
 };
 
@@ -118,7 +120,7 @@ export const getallagents = () => async (dispatch) => {
     let { data } = await axios.get(`/api/user/allagents`, config);
     dispatch({ type: GET_ALL_AGENTS, payload: data });
   } catch (error) {
-    dispatch({ type: FAIL_DATA, payload: error.response.data });
+    dispatch({ type: FAIL_DATA, payload: error.response });
   }
 };
 
@@ -304,6 +306,21 @@ export const editdemandeUser = (iddemande, editDemande) => async (dispatch) => {
   }
 };
 /******************************************************** agent  ********************************************************/
+export const registerAgent = (addAgent, history) => async (dispatch) => {
+  const config = {
+    headers: {
+      authorization: localStorage.getItem("token"),
+    },
+  };
+  dispatch({ type: LOAD_DATA });
+  try {
+    let { data } = await axios.post("/api/agent/register", addAgent, config);
+    dispatch({ type: REGISTER_USER, payload: data });
+    history.push("/services");
+  } catch (error) {
+    dispatch({ type: FAIL_DATA, payload: error.response.data });
+  }
+};
 
 export const currentAgent = (id) => async (dispatch) => {
   const config = {

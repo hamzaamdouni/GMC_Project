@@ -25,10 +25,10 @@ const {
   VerifyUser,
   deleteUserByAdmin,
   getAllUserRole,
-  getAllAgentService,
-  getAllAgentCategory,
+  getAllAgent,
 } = require("../controllers/admin.controllers");
 const isAuthAdmin = require("../middlewares/isAuthAdmin");
+const upload = require("../middlewares/upload");
 
 const router = express.Router();
 
@@ -60,19 +60,16 @@ router.delete("/profil", isAuthAdmin, deleteAdmin);
 /* * * * * * * * * * * * * * * * * * *  * * *     Gere Users     * * * * * * * * * * * * * * * * * * * * *  */
 
 // Verified a user (admin)
-router.put("/verify/:id", isAuthAdmin, VerifyUser);
+router.put("/user/:id", isAuthAdmin, VerifyUser);
 
 // get All user by role(admin)
-router.get("/role/:userrole", isAuthAdmin, getAllUserRole);
+router.get("/user", isAuthAdmin, getAllUserRole);
 
 // get All Agent user by service (admin)
-router.get("/agent/service/:agentservice", isAuthAdmin, getAllAgentService);
-
-// get All Agent user by category (admin)
-router.get("/agent/category/:agentcategory", isAuthAdmin, getAllAgentCategory);
+router.get("/agent", isAuthAdmin, getAllAgent);
 
 // delete a user (admin)
-router.delete("/delete/:id", isAuthAdmin, deleteUserByAdmin);
+router.delete("/user/:id", isAuthAdmin, deleteUserByAdmin);
 
 /* * * * * * * * * * * * * * * * * * *  * * *     Gere Categorie    * * * * * * * * * * * * * * * * * * * * *  */
 
@@ -86,7 +83,7 @@ router.put("/category/:id", isAuthAdmin, updateCategory);
 router.delete("/category/:id", isAuthAdmin, deleteCategory);
 
 // get Categorys for one service (admin)
-router.get("/category ", isAuthAdmin, getCategory);
+router.get("/category", isAuthAdmin, getCategory);
 
 /* * * * * * * * * * * * * * * * * * *  * * *     Gere Service    * * * * * * * * * * * * * * * * * * * * *  */
 

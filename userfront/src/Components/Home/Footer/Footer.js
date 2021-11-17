@@ -7,7 +7,7 @@ const Footer = () => {
       <div className="bottom-details">
         <div className="bottom_text">
           <span className="copyright_text">
-            Copyright © 2021 <span>CodingLab.</span>All rights reserved
+            Copyright © 2021 <span>Hamza Amdouni.</span>All rights reserved
           </span>
           <span className="policy_terms">
             <span>Privacy policy</span>

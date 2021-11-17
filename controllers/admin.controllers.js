@@ -122,36 +122,21 @@ exports.VerifyUser = async (request, response) => {
 // get All user by role(admin)
 exports.getAllUserRole = async (request, response) => {
   try {
-    const { userrole } = request.params;
-    const Userlist = await user.find({ role: userrole });
-    response.send({ msg: `get all $userrole`, Userlist });
+    const Userlist = await user.find();
+    response.send({ msg: `get all User`, Userlist });
   } catch (error) {
-    console.log(error);
     response.status(400).send({ msg: "can not get Clients", error });
   }
 };
 
 // get All Agent user by service (admin)
-exports.getAllAgentService = async (request, response) => {
+exports.getAllAgent = async (request, response) => {
   try {
-    const { agentservice } = request.params;
-    const OneService = await service.findOne({ nom: agentservice });
-    const { _id } = OneService;
-    const AgentList = await agent.find({ id_service: _id });
-    response.send({ msg: "get all agent", AgentList });
-  } catch (error) {
-    console.log(error);
-    response.status(400).send({ msg: "can not get Agents", error });
-  }
-};
-
-// get All Agent user by category (admin)
-exports.getAllAgentCategory = async (request, response) => {
-  try {
-    const { agentcategory } = request.params;
-    const OneCategory = await category.findOne({ nom: agentcategory });
-    const { _id } = OneCategory;
-    const AgentList = await agent.find({ id_category: _id });
+    const AgentList = await agent
+      .find()
+      .populate("id_agent")
+      .populate("id_service")
+      .populate("id_category");
     response.send({ msg: "get all agent", AgentList });
   } catch (error) {
     console.log(error);
@@ -163,7 +148,7 @@ exports.getAllAgentCategory = async (request, response) => {
 exports.deleteUserByAdmin = async (request, response) => {
   try {
     const { id } = request.params;
-    let result = await User.deleteOne({ _id: id });
+    let result = await user.deleteOne({ _id: id });
     let rusult1 = await agent.deleteOne({ id_agent: id });
     response.send({ msg: "deleted succ" });
   } catch (error) {
@@ -230,8 +215,8 @@ exports.deleteCategory = async (request, response) => {
 // get Categorys for one service (admin)
 exports.getCategory = async (request, response) => {
   try {
-    const findCategory = await category.find();
-    response.send({ msg: "get the Service", findCategory });
+    const findCategory = await category.find().populate("id_service");
+    response.send({ msg: "get the Category", findCategory });
   } catch (error) {
     response.status(400).send({ msg: "can not get" });
   }

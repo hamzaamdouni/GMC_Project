@@ -1,0 +1,65 @@
+.OneAgentModalContainer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  position: relative;
+}
+
+.OneAgentModalWrapper {
+  background-color: #000;
+  box-shadow: 0 10px 20px -10px rgba(0, 0, 0, 0.75);
+  border-radius: 15px;
+  width: 70%;
+  height: 70%;
+  padding: 1%;
+  display: flex;
+}
+.OneAgentModalImage {
+  width: 30%;
+  background-color: blue;
+}
+
+.OneAgentModalInfo {
+  width: 70%;
+  padding: 2%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.OneAgentModalInfoContent {
+  width: 100%;
+  margin-bottom: 15px;
+}
+.OneAgentModalInfoContent span {
+  margin: 15px 15px 15px 0px;
+}
+.OneAgentModalInfoIcon {
+  color: #efa51f;
+  margin-right: 10px;
+}
+
+.OneAgentModalInfoBtn {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.OneAgentModalInfoBtn button {
+  width: 20%;
+  margin: 1%;
+  padding: 1% 3%;
+  color: #fff;
+  background-color: transparent;
+  border-radius: 5px;
+  border: 1px solid #efa51f;
+}
+
+.OneAgentModalInfoBtn button:hover {
+  background-color: #efa51f;
+  border-radius: 10px;
+}

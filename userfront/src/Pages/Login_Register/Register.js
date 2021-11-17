@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { register } from "../../JS/actions/visiteur";
+import { useForm } from "react-hook-form";
 
 import "./Register.css";
 import Video from "../../Assets/Visiteur/video.mp4";
@@ -14,6 +15,7 @@ const Register = () => {
     email: "",
     password: "",
     role: "",
+    imageName: undefined,
   });
   const dispatch = useDispatch();
 
@@ -21,11 +23,25 @@ const Register = () => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
+  const handleFile = (e) => {
+    setUser({ ...user, imageName: e.target.files[0] });
+  };
   const handleRegister = (e) => {
     if (user.role === "") {
       alert("Choisir un role");
     } else {
-      dispatch(register(user));
+      //  const user = watch();
+      const formData = new FormData();
+      formData.append("nom", user.nom);
+      formData.append("prenom", user.prenom);
+      formData.append("adress", user.adress);
+      formData.append("phone", user.phone);
+      formData.append("email", user.email);
+      formData.append("password", user.password);
+      formData.append("role", user.role);
+      formData.append("imageName", user.imageName);
+      console.log("Nom image est ", user.imageName);
+      dispatch(register(formData));
       setUser({
         nom: "",
         prenom: "",
@@ -34,6 +50,7 @@ const Register = () => {
         email: "",
         password: "",
         role: "",
+        imageName: undefined,
       });
     }
 
@@ -56,7 +73,11 @@ const Register = () => {
         <div className="IdentifiyContent">
           <div className="wrapper">
             <div className="title">Registration Form</div>
-            <div className="form">
+            <form
+              className="form"
+              encType="multipart/form-data"
+              onSubmit={handleRegister}
+            >
               <div className="inputfield">
                 <label>Nom : </label>
                 <input
@@ -129,6 +150,16 @@ const Register = () => {
                   value={user.password}
                 />
               </div>
+
+              <div className="inputfield">
+                <label>Image : </label>
+                <input
+                  class="input"
+                  type="file"
+                  filename="imageName"
+                  onChange={handleFile}
+                />
+              </div>
               <div className="inputfield">
                 <label>Role</label>
                 <div className="custom_select">
@@ -140,14 +171,9 @@ const Register = () => {
                 </div>
               </div>
               <div className="inputfield">
-                <input
-                  type="submit"
-                  defaultValue="Register"
-                  className="btn"
-                  onClick={handleRegister}
-                />
+                <input type="submit" defaultValue="Register" className="btn" />
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>

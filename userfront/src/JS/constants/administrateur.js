@@ -14,12 +14,14 @@ export const FAIL_RECLAMATION = "FAIL_RECLAMATION";
 /*--------------------------------- Services ---------------------------------*/
 
 export const GET_SERVICE = "GET_SERVICE";
+export const ADD_SERVICE = "ADD_SERVICE";
 export const LOAD_SERVICE = "LOAD_SERVICE";
 export const FAIL_SERVICE = "FAIL_SERVICE";
 
 /*--------------------------------- Categorys ---------------------------------*/
 
 export const GET_CATEGORY = "GET_CATEGORY";
+export const ADD_CATEGORY = "ADD_CATEGORY";
 export const LOAD_CATEGORY = "LOAD_CATEGORY";
 export const FAIL_CATEGORY = "FAIL_CATEGORY";
 
@@ -29,8 +31,8 @@ export const GET_AGENT = "GET_AGENT";
 export const LOAD_AGENT = "LOAD_AGENT";
 export const FAIL_AGENT = "FAIL_AGENT";
 
-/*--------------------------------- Clients ---------------------------------*/
+/*--------------------------------- Users ---------------------------------*/
 
-export const GET_CLIENT = "GET_CLIENT";
-export const LOAD_CLIENT = "LOAD_CLIENT";
-export const FAIL_CLIENT = "FAIL_CLIENT";
+export const GET_USER = "GET_USER";
+export const LOAD_USER = "LOAD_USER";
+export const FAIL_USER = "FAIL_USER";

@@ -25,6 +25,7 @@ import {
   LOAD_DEMANDE,
   LOGIN_USER,
   LOGOUT_USER,
+  REGISTER_AGENT,
   REGISTER_USER,
   SEND_RECLAMATION,
 } from "../constants/visiteur";
@@ -128,7 +129,8 @@ const visiteurReducer = (state = initialState, { type, payload }) => {
     case FAIL_COMMENT:
       return { ...state, errors: payload, isloadComment: false };
     /******************************************************** agent  ********************************************************/
-
+    case REGISTER_AGENT:
+      return { ...state, agent: payload.agent, isload: false };
     case CURRENT_AGENT:
       return {
         ...state,

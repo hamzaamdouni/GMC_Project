@@ -24,7 +24,7 @@ const Navbar = () => {
           </Link>
           <div className="ProfileContent">
             <img
-              src="https://images.unsplash.com/photo-1565464027194-7957a2295fb7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80"
+              src={`../../../Assets/Images/${user.imageName}`}
               alt=""
               className="profileNavbar"
             />

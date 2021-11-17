@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import Agents from "./Agents/Agents";
 import "./HomeAdminBody.css";
 import Reclamation from "./Reclamation/Reclamation";
 
@@ -36,7 +37,7 @@ const HomeAdminBody = ({ isAffiche }) => {
         </>
       )}
       {isAffiche === "Services" && null}
-      {isAffiche === "Agents" && null}
+      {isAffiche === "Agents" && <Agents />}
     </div>
   );
 };

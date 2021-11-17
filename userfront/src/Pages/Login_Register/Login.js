@@ -5,24 +5,32 @@ import { login } from "../../JS/actions/visiteur";
 import { Link as LinkR } from "react-router-dom";
 import Video from "../../Assets/Visiteur/video.mp4";
 import "./Login.css";
+import { useForm } from "react-hook-form";
 
 const Login = () => {
-  const [user, setUser] = useState({ email: "", password: "" });
+  // const [user, setUser] = useState({ email: "", password: "" });
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
 
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const handleUser = (e) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
-  };
+  // const handleUser = (e) => {
+  //   setUser({ ...user, [e.target.name]: e.target.value });
+  // };
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    dispatch(login(user, history));
-    setUser({
-      email: "",
-      password: "",
-    });
+  const onSubmit = () => {
+    // e.preventDefault();
+    // console.log(watch());
+    dispatch(login(watch(), history));
+    // setUser({
+    //   email: "",
+    //   password: "",
+    // });
   };
 
   return (
@@ -40,7 +48,7 @@ const Login = () => {
         </div>
         <div className="IdentifiyContent">
           <div className="containerLogin">
-            <form action="#">
+            <form action="#" onSubmit={handleSubmit(onSubmit)}>
               <div className="title">Login</div>
               <div className="input-box underline">
                 <input
@@ -48,9 +56,15 @@ const Login = () => {
                   placeholder="Enter votre email"
                   required
                   name="email"
-                  onInput={handleUser}
-                  value={user.email}
+                  // onInput={handleUser}
+                  // value={user.email}
+                  {...register("email", {
+                    required: true,
+                    pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
+                  })}
                 />
+                {errors.email && <span>It must be an email</span>}
+
                 <div className="underline" />
               </div>
               <div className="input-box">
@@ -59,9 +73,12 @@ const Login = () => {
                   placeholder="Enter votre mot de passe"
                   required
                   name="password"
-                  onInput={handleUser}
-                  value={user.password}
+                  // onInput={handleUser}
+                  // value={user.password}
+                  {...register("password", { required: true })}
                 />
+                {errors.password && <span>This field is required</span>}
+
                 <div className="underline" />
               </div>
               <div className="input-box button">
@@ -69,7 +86,7 @@ const Login = () => {
                   type="submit"
                   name
                   defaultValue="Continue"
-                  onClick={handleLogin}
+                  // onClick={handleLogin}
                 />
               </div>
             </form>

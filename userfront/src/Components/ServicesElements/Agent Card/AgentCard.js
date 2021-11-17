@@ -1,5 +1,4 @@
 import React from "react";
-
 import "./AgentCard.css";
 
 const AgentCard = ({ oneAgent, setModalIsOpen, setIdagent }) => {
@@ -14,13 +13,19 @@ const AgentCard = ({ oneAgent, setModalIsOpen, setIdagent }) => {
     <div className="container">
       <div className="cover-photo">
         <img
-          src="https://images.unsplash.com/photo-1565464027194-7957a2295fb7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80"
+          src={`../../../Assets/Images/${oneAgent.id_agent.imageName}`}
           alt="coverphoto"
           className="profile"
+          // style={
+          //   "background-mage: `../../../Assets/Images/${oneAgent.id_agent.imageName}`"
+          // }
+          style={{
+            backgroundImage: `url(../../../Assets/Images/${oneAgent.id_agent.imageName})`,
+          }}
         />
       </div>
       <div className="profile-name">
-        {oneAgent.id_agent.nom} {oneAgent.id_agent.prenom}
+        {oneAgent.id_agent.nom} {oneAgent.id_agent.prenom}{" "}
       </div>
       <div className="about">
         <p className="CardService">

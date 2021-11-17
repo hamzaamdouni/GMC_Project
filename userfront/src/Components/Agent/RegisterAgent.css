@@ -1,0 +1,185 @@
+.RegisterAgentContainer {
+  width: 100%;
+  height: 100vh;
+  background-color: #000;
+}
+
+.RegisterAgentImage {
+  width: 100%;
+  height: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.RegisterAgentImage img {
+  height: 70%;
+}
+.RegisterAgentContent {
+  width: 100%;
+  height: 60%;
+}
+
+.RegisterAgentContent h1 {
+  color: #636c72;
+  margin: 2%;
+}
+
+.RegisterAgentWrap {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 1%;
+}
+.RegisterAgentContent .input-box {
+  height: 40px;
+  width: 20%;
+  margin: 8px 5px 0 5px;
+  position: relative;
+}
+
+.RegisterAgentContent .input-box input {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  border-radius: 6px;
+  font-size: 16px;
+  outline: none;
+  padding-left: 16px;
+  background: rgb(26, 26, 26);
+  border: none;
+  transition: all 0.3s ease;
+  color: #fff;
+}
+
+.RegisterAgentContent .input-box input:focus,
+.RegisterAgentContent .input-box input:valid {
+  border: 2px solid #efa51f;
+  background-color: #000;
+  color: #fff;
+}
+
+.RegisterAgentContent .input-box label {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  color: #636c72;
+  font-size: 15px;
+  pointer-events: none;
+  transform: translateY(-50%);
+  transition: all 0.3s ease;
+}
+
+.RegisterAgentContent .input-box input:focus ~ label,
+.RegisterAgentContent .input-box input:valid ~ label {
+  top: 0;
+  left: 12px;
+  display: 14px;
+  color: #efa51f;
+  background: #000;
+}
+
+.RegisterAgentWrapSelect {
+  width: 20%;
+  height: 40px;
+  margin: 8px 5px 0 5px;
+}
+
+.RegisterAgentWrapSelect select {
+  text-align: center;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+  width: 99%;
+  height: 40px;
+  border-radius: 5px;
+  white-space: nowrap;
+  color: #636c72;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  background: rgb(26, 26, 26);
+  border: none;
+}
+
+.RegisterAgentWrapSelect select:focus {
+  color: #efa51f;
+}
+
+.RegisterAgentWrap .message-box {
+  width: 41%;
+  min-height: 100px;
+  position: relative;
+  margin-top: 0.5%;
+}
+
+.RegisterAgentWrap .message-box textarea {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  resize: none;
+  background: rgb(26, 26, 26);
+  border: 2px solid transparent;
+  border-radius: 6px;
+  outline: none;
+  transition: all 0.3s ease;
+  color: #fff;
+  padding: 3%;
+}
+
+.RegisterAgentWrap .message-box textarea:focus,
+.RegisterAgentWrap .message-box textarea:valid {
+  border-color: #efa51f;
+  background-color: #000;
+  color: #fff;
+  padding: 2%;
+}
+
+.RegisterAgentWrap .message-box label {
+  position: absolute;
+  font-size: 16px;
+  color: #636c72;
+  left: 18px;
+  top: 6px;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.RegisterAgentWrap .message-box textarea:focus ~ label {
+  left: 12px;
+  top: -10px;
+  color: #efa51f;
+  font-size: 14px;
+  background: #000;
+}
+
+.RegisterAgentWrap .message-box textarea:valid ~ label {
+  left: 12px;
+  top: -10px;
+  color: #efa51f;
+  font-size: 14px;
+  background: #000;
+}
+
+.RegisterAgentBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.RegisterAgentBtn input {
+  width: 40%;
+  height: 40px;
+  font-size: 16px;
+  color: #636c72;
+  background-color: transparent;
+  border-radius: 5px;
+  border: 2px solid rgb(26, 26, 26);
+}
+
+.RegisterAgentBtn input:hover {
+  color: #efa51f;
+  border: 2px solid #efa51f;
+}

@@ -1,0 +1,14 @@
+.AgentsContainer {
+  margin: 2% 1%;
+}
+.AgentsContainer th {
+  font-size: 14px;
+}
+.OneAgentContainer td {
+  font-size: 14px;
+}
+.AgentCellule {
+  width: 80px;
+  padding: 5px;
+  color: blue;
+}

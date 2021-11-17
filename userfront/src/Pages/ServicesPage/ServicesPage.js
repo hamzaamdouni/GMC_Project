@@ -6,6 +6,7 @@ import AgentCard from "../../Components/ServicesElements/Agent Card/AgentCard";
 import "./ServicesPage.css";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  currentAgent,
   getallagentCategory,
   getallagents,
   getallagentService,
@@ -13,8 +14,11 @@ import {
 } from "../../JS/actions/visiteur";
 import ProfilModal from "../../Components/ServicesElements/Profil Agent Modal/ProfilModal";
 import Loading from "../../Components/Loading/Loading";
+import RegisterAgent from "../../Components/Agent/RegisterAgent";
 
 const ServicesPage = () => {
+  const user = useSelector((state) => state.visiteurReducer.user);
+  const agent = useSelector((state) => state.visiteurReducer.agent);
   const [service, setService] = useState("-- Services--");
   const [category, setCategory] = useState("-- Categorys--");
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -38,12 +42,19 @@ const ServicesPage = () => {
     }
   }, [dispatch, service, category]);
 
+  useEffect(() => {
+    if (user.role === "Agent") {
+      dispatch(currentAgent(user._id));
+    }
+  }, [dispatch, user._id, user.role]);
   const isloadagents = useSelector(
     (state) => state.visiteurReducer.isloadagents
   );
   const agents = useSelector((state) => state.visiteurReducer.agents);
 
-  return (
+  return user.role === "Agent" && agent === null ? (
+    <RegisterAgent />
+  ) : (
     <div className="ServicesPage">
       <Navbar />
       <div className="ServicesPageContent">
@@ -57,6 +68,7 @@ const ServicesPage = () => {
           {isloadagents ? (
             <Loading />
           ) : (
+            agents &&
             agents.map((oneAgent) => (
               <AgentCard
                 oneAgent={oneAgent}

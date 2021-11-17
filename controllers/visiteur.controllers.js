@@ -12,6 +12,7 @@ var jwt = require("jsonwebtoken");
 exports.RegisterUser = async (request, response) => {
   try {
     const { email, password } = request.body;
+    // const { file } = request;
     const findUser = await user.findOne({ email });
 
     if (findUser) {
@@ -20,12 +21,16 @@ exports.RegisterUser = async (request, response) => {
       const saltRounds = 10;
       const hashedpassword = bcrypt.hashSync(password, saltRounds);
 
-      const newUser = new user({ ...request.body });
+      const newUser = new user({
+        ...request.body,
+        imageName: request.file.filename,
+      });
       newUser.password = hashedpassword;
       await newUser.save();
       response.send({ msg: "register seccess", user: newUser });
     }
   } catch (error) {
+    console.log(error);
     response.send({ errors: [{ msg: "Can not register the User" }] });
   }
 };
@@ -37,20 +42,22 @@ exports.LoginUser = async (request, response) => {
     const findUser = await user.findOne({ email });
 
     if (!findUser) {
-      response
+      return response
         .status(400)
-        .send({ errors: [{ msg: "email or password invalid" }] });
+        .send({ errors: [{ msg: "email or password invalid1" }] });
     }
 
     if (findUser.etat == "NotVerified") {
-      response.status(400).send({ errors: [{ msg: "Compte Non verifier" }] });
+      return response
+        .status(400)
+        .send({ errors: [{ msg: "Compte Non verifier" }] });
     }
     const testPassword = bcrypt.compareSync(password, findUser.password);
 
     if (!testPassword) {
       response
         .status(400)
-        .send({ errors: [{ msg: "email email or password invalid" }] });
+        .send({ errors: [{ msg: "email email or password invalid2" }] });
     }
 
     const token = jwt.sign(

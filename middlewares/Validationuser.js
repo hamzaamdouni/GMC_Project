@@ -1,18 +1,18 @@
-const { check, validationResult } = require("express-validator");
+const { validationResult, body } = require("express-validator");
 
 exports.RegisterUserValidation = () => [
-  check("nom", "Nom obligatoire").notEmpty(),
-  check("prenom", "Prenom obligatoire").notEmpty(),
-  check("email", "Email invalide").isEmail(),
-  check("password", "Mot de passe minimum 8 character").isLength({ min: 8 }),
-  check("phone", "Phone obligatoire").notEmpty(),
-  check("adress", "Adresse obligatoire").notEmpty(),
-  check("role", "Role obligatoire").notEmpty(),
+  body("nom", "Nom obligatoire").notEmpty(),
+  body("prenom", "Prenom obligatoire").notEmpty(),
+  body("email", "Email invalide").isEmail(),
+  body("password", "Mot de passe minimum 8 character").isLength({ min: 8 }),
+  body("phone", "Phone obligatoire").notEmpty(),
+  body("adress", "Adresse obligatoire").notEmpty(),
+  body("role", "Role obligatoire").notEmpty(),
 ];
 
 exports.LoginUserValidation = () => [
-  check("email", "Email invalide").isEmail(),
-  check("password", "Mot de passe minimum 8 character").isLength({ min: 8 }),
+  body("email", "Email invalide").isEmail(),
+  body("password", "Mot de passe minimum 8 character").isLength({ min: 8 }),
 ];
 
 exports.Uservalidation = (request, response, next) => {

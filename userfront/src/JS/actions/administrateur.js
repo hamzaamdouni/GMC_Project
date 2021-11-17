@@ -2,10 +2,22 @@ import axios from "axios";
 import {
   CURRENT_ADMIN,
   FAIL_ADMIN,
+  FAIL_AGENT,
+  FAIL_CATEGORY,
   FAIL_RECLAMATION,
+  FAIL_SERVICE,
+  FAIL_USER,
+  GET_AGENT,
+  GET_CATEGORY,
   GET_RECLAMATION,
+  GET_SERVICE,
+  GET_USER,
   LOAD_ADMIN,
+  LOAD_AGENT,
+  LOAD_CATEGORY,
   LOAD_RECLAMATION,
+  LOAD_SERVICE,
+  LOAD_USER,
   LOGIN_ADMIN,
   LOGOUT_ADMIN,
 } from "../constants/administrateur";
@@ -87,5 +99,151 @@ export const deleteReclamations = (id) => async (dispatch) => {
     dispatch(getReclamations());
   } catch (error) {
     dispatch({ type: FAIL_RECLAMATION, payload: error.response.data });
+  }
+};
+
+/*--------------------------------- Services ---------------------------------*/
+export const getServices = () => async (dispatch) => {
+  const config = {
+    headers: {
+      authorization: localStorage.getItem("token"),
+    },
+  };
+  dispatch({ type: LOAD_SERVICE });
+  try {
+    let { data } = await axios.get(`/api/admin/allservice`, config);
+    dispatch({ type: GET_SERVICE, payload: data });
+  } catch (error) {
+    dispatch({ type: FAIL_SERVICE, payload: error.response.data });
+  }
+};
+
+export const editService = (id, editService) => async (dispatch) => {
+  const config = {
+    headers: {
+      authorization: localStorage.getItem("token"),
+    },
+  };
+  try {
+    await axios.put(`/api/admin/service/${id}`, editService, config);
+    dispatch(getServices());
+  } catch (error) {
+    dispatch({ type: FAIL_SERVICE, payload: error.response.data });
+  }
+};
+
+export const deleteServices = (id) => async (dispatch) => {
+  const config = {
+    headers: {
+      authorization: localStorage.getItem("token"),
+    },
+  };
+  try {
+    await axios.delete(`/api/admin/service/${id}`, config);
+    dispatch(getServices());
+  } catch (error) {
+    dispatch({ type: FAIL_SERVICE, payload: error.response.data });
+  }
+};
+/*--------------------------------- Categorys ---------------------------------*/
+export const getCategorys = () => async (dispatch) => {
+  const config = {
+    headers: {
+      authorization: localStorage.getItem("token"),
+    },
+  };
+  dispatch({ type: LOAD_CATEGORY });
+  try {
+    let { data } = await axios.get(`/api/admin/category`, config);
+    dispatch({ type: GET_CATEGORY, payload: data });
+  } catch (error) {
+    dispatch({ type: FAIL_CATEGORY, payload: error.response.data });
+  }
+};
+
+export const editCategory = (id, editCategory) => async (dispatch) => {
+  const config = {
+    headers: {
+      authorization: localStorage.getItem("token"),
+    },
+  };
+  try {
+    await axios.put(`/api/admin/category/${id}`, editCategory, config);
+    dispatch(getCategorys());
+  } catch (error) {
+    dispatch({ type: FAIL_CATEGORY, payload: error.response.data });
+  }
+};
+
+export const deleteCategorys = (id) => async (dispatch) => {
+  const config = {
+    headers: {
+      authorization: localStorage.getItem("token"),
+    },
+  };
+  try {
+    await axios.delete(`/api/admin/category/${id}`, config);
+    dispatch(getCategorys());
+  } catch (error) {
+    dispatch({ type: FAIL_CATEGORY, payload: error.response.data });
+  }
+};
+/*---------------------------------  Agents ---------------------------------*/
+export const getAgents = () => async (dispatch) => {
+  const config = {
+    headers: {
+      authorization: localStorage.getItem("token"),
+    },
+  };
+  dispatch({ type: LOAD_AGENT });
+  try {
+    let { data } = await axios.get(`/api/admin/agent`, config);
+    dispatch({ type: GET_AGENT, payload: data });
+  } catch (error) {
+    dispatch({ type: FAIL_AGENT, payload: error.response.data });
+  }
+};
+/*--------------------------------- Users ---------------------------------*/
+export const getUsers = () => async (dispatch) => {
+  const config = {
+    headers: {
+      authorization: localStorage.getItem("token"),
+    },
+  };
+  dispatch({ type: LOAD_USER });
+  try {
+    let { data } = await axios.get(`/api/admin/user`, config);
+    dispatch({ type: GET_USER, payload: data });
+  } catch (error) {
+    dispatch({ type: FAIL_USER, payload: error.response.data });
+  }
+};
+
+export const VerifyUser = (id, editUser) => async (dispatch) => {
+  const config = {
+    headers: {
+      authorization: localStorage.getItem("token"),
+    },
+  };
+  try {
+    await axios.put(`/api/admin/user/${id}`, editUser, config);
+    dispatch(getAgents());
+  } catch (error) {
+    dispatch({ type: FAIL_USER, payload: error.response.data });
+  }
+};
+
+export const deleteUsers = (id) => async (dispatch) => {
+  const config = {
+    headers: {
+      authorization: localStorage.getItem("token"),
+    },
+  };
+  try {
+    await axios.delete(`/api/admin/user/${id}`, config);
+    dispatch(getAgents());
+    dispatch(getUsers());
+  } catch (error) {
+    dispatch({ type: FAIL_USER, payload: error.response.data });
   }
 };

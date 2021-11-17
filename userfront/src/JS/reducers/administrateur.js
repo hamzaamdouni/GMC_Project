@@ -3,18 +3,18 @@ import {
   FAIL_ADMIN,
   FAIL_AGENT,
   FAIL_CATEGORY,
-  FAIL_CLIENT,
+  FAIL_USER,
   FAIL_RECLAMATION,
   FAIL_SERVICE,
   GET_AGENT,
   GET_CATEGORY,
-  GET_CLIENT,
+  GET_USER,
   GET_RECLAMATION,
   GET_SERVICE,
   LOAD_ADMIN,
   LOAD_AGENT,
   LOAD_CATEGORY,
-  LOAD_CLIENT,
+  LOAD_USER,
   LOAD_RECLAMATION,
   LOAD_SERVICE,
   LOGIN_ADMIN,
@@ -40,8 +40,8 @@ const initialState = {
   agents: [],
   isloadAgent: false,
   /*--------------------------------- Clients ---------------------------------*/
-  clients: [],
-  isloadClient: false,
+  users: [],
+  isloadUser: false,
 };
 
 const AdministrateurReducer = (state = initialState, { type, payload }) => {
@@ -118,19 +118,18 @@ const AdministrateurReducer = (state = initialState, { type, payload }) => {
       };
     case FAIL_AGENT:
       return { ...state, errors: payload, isloadAgent: false };
-    /*--------------------------------- Clients ---------------------------------*/
-    case LOAD_CLIENT:
-      return { ...state, isloadClient: true };
-    case GET_CLIENT:
+    /*--------------------------------- Users ---------------------------------*/
+    case LOAD_USER:
+      return { ...state, isloadUser: true };
+    case GET_USER:
       return {
         ...state,
-        clients: payload.Userlist,
-        isloadClient: false,
+        users: payload.Userlist,
+        isloadUser: false,
       };
-    case FAIL_CLIENT:
-      return { ...state, errors: payload, isloadClient: false };
+    case FAIL_USER:
+      return { ...state, errors: payload, isloadUser: false };
     /*-----------------------------------------------------------------------------------*/
-
     default:
       return { ...state };
   }

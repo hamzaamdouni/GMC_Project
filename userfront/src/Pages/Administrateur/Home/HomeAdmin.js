@@ -5,16 +5,28 @@ import HomeAdminHeader from "../../../Components/Administrateur/HomeAdminHeader/
 import SideBarAdmin from "../../../Components/Administrateur/SideBarAdmin/SideBarAdmin";
 import {
   currentAdmin,
+  getAgents,
+  getCategorys,
   getReclamations,
+  getServices,
+  getUsers,
 } from "../../../JS/actions/administrateur";
 import "./HomeAdmin.css";
 
 const HomeAdmin = () => {
   const dispatch = useDispatch();
   const [isAffiche, setIsAffiche] = useState();
+
   useEffect(() => {
     dispatch(currentAdmin());
+    dispatch(getServices());
+    dispatch(getUsers());
+  }, [dispatch]);
+
+  useEffect(() => {
     dispatch(getReclamations());
+    dispatch(getCategorys());
+    dispatch(getAgents());
   }, [dispatch, isAffiche]);
 
   const admin = useSelector((state) => state.AdministrateurReducer.admin);

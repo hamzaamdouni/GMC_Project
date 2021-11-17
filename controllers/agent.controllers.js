@@ -12,8 +12,9 @@ var jwt = require("jsonwebtoken");
 // ajouter profil agent
 exports.RegisterAgent = async (request, response) => {
   try {
-    const { _id } = request.user;
-    const findUser = await agent.findOne({ id_agent: _id });
+    const token = request.headers["authorization"];
+    const decoded = jwt.verify(token, process.env.SECRET_KEY);
+    const findUser = await agent.findOne({ id_agent: decoded._id });
     const { nomcategory } = request.body;
     const findCategory = await category.findOne({ nom: nomcategory });
 
@@ -22,7 +23,7 @@ exports.RegisterAgent = async (request, response) => {
     } else {
       const newAgent = new agent({
         ...request.body,
-        id_agent: _id,
+        id_agent: decoded._id,
         id_service: findCategory.id_service,
         id_category: findCategory._id,
       });

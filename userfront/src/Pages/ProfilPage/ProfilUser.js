@@ -111,7 +111,6 @@ const ProfilUser = () => {
       dispatch(getcommentAgent());
     }
   }, [dispatch, isActive, user.role]);
-
   return (
     <div className="ProfilUser">
       {/***************************************** NavBar *****************************************/}
@@ -120,7 +119,11 @@ const ProfilUser = () => {
         {/***************************************** Partie Information user *****************************************/}
         <div className="InfoContainer">
           <div className="ImageCentent">
-            <img src={ProfilImage} alt="" className="ProfilImg" />
+            <img
+              src={`../../../Assets/Images/${user.imageName}`}
+              alt=""
+              className="ProfilImg"
+            />
           </div>
 
           {user.role === "Agent" ? (

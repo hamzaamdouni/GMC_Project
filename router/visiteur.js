@@ -9,6 +9,7 @@ const {
 } = require("../controllers/visiteur.controllers");
 
 const isVerifiedUser = require("../middlewares/isVerifiedUser");
+const upload = require("../middlewares/upload");
 const {
   RegisterReclamationValidation,
   Reclamationvalidation,
@@ -26,8 +27,8 @@ const router = express.Router();
 // Register user
 router.post(
   "/register",
-  RegisterUserValidation(),
-  Uservalidation,
+
+  upload,
   RegisterUser
 );
 // Login user

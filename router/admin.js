@@ -74,7 +74,7 @@ router.delete("/user/:id", isAuthAdmin, deleteUserByAdmin);
 /* * * * * * * * * * * * * * * * * * *  * * *     Gere Categorie    * * * * * * * * * * * * * * * * * * * * *  */
 
 // Add a category (admin)
-router.post("/category/:id", isAuthAdmin, addCategory);
+router.post("/category/", isAuthAdmin, addCategory);
 
 // updet a category (admin)
 router.put("/category/:id", isAuthAdmin, updateCategory);
@@ -88,7 +88,7 @@ router.get("/category", isAuthAdmin, getCategory);
 /* * * * * * * * * * * * * * * * * * *  * * *     Gere Service    * * * * * * * * * * * * * * * * * * * * *  */
 
 // Add a service (admin)
-router.post("/service", isAuthAdmin, addService);
+router.post("/service", isAuthAdmin, upload, addService);
 
 // updet a service (admin)
 router.put("/service/:id", isAuthAdmin, updateService);

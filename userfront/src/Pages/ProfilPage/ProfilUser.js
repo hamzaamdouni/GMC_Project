@@ -4,8 +4,6 @@ import { useHistory } from "react-router";
 
 import "./ProfilUser.css";
 
-import ProfilImage from "../../Assets/User/profil.jpg";
-
 import { FaUserCheck, FaMapMarkedAlt, FaUserGraduate } from "react-icons/fa";
 import { IoIosMail } from "react-icons/io";
 import { BsFillTelephoneFill } from "react-icons/bs";
@@ -29,7 +27,6 @@ import DemandeHeader from "../../Components/ProfilUser/DemandeHeader/DemandeHead
 import DemandeBody from "../../Components/ProfilUser/DemandeBody/DemandeBody";
 import CommentAgent from "../../Components/ProfilUser/CommentAgent/CommentAgent";
 import DemandesUser from "../../Components/ProfilUser/DemandesUser/DemandesUser";
-import CommentsUser from "../../Components/ProfilUser/CommentsUser/CommentsUser";
 
 const ProfilUser = () => {
   const history = useHistory();
@@ -120,7 +117,7 @@ const ProfilUser = () => {
         <div className="InfoContainer">
           <div className="ImageCentent">
             <img
-              src={`../../../Assets/Images/${user.imageName}`}
+              src={`uploads/${user.imageName}`}
               alt=""
               className="ProfilImg"
             />
@@ -325,7 +322,7 @@ const ProfilUser = () => {
 
             {isActive === "CommentRecu" && (
               <>
-                <CommentAgent commentsAgent={commentsAgent} />
+                <CommentAgent comments={commentsAgent} isActive={isActive} />
               </>
             )}
             {isActive === "MesDemande" && (
@@ -336,7 +333,7 @@ const ProfilUser = () => {
             )}
             {isActive === "MesComment" && (
               <>
-                <CommentsUser commentsUser={commentsUser} />
+                <CommentAgent comments={commentsUser} isActive={isActive} />
               </>
             )}
           </div>

@@ -1,8 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-import Icon1 from "../../../Assets/Visiteur/icon1.svg";
-
 import {
   ServicesCard,
   ServicesContainer,
@@ -26,12 +24,9 @@ const ServiceSection = () => {
             ? null
             : services.map((el) => (
                 <ServicesCard>
-                  <ServicesIcon src={Icon1} />
+                  <ServicesIcon src={`uploads/${el.imageName}`} />
                   <ServicesH2>{el.nom}</ServicesH2>
-                  <ServicesP>
-                    This is a paragraph is a paragraphis a paragraphis a
-                    paragraphis a paragraphis a paragraphis a paragraph
-                  </ServicesP>
+                  <ServicesP>{el.description}</ServicesP>
                 </ServicesCard>
               ))}
         </ServicesWrapper>

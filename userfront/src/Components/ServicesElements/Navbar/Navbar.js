@@ -13,6 +13,7 @@ const Navbar = () => {
   const handleLogout = () => {
     dispatch(logout());
   };
+
   return (
     <div>
       {isload ? (
@@ -23,11 +24,14 @@ const Navbar = () => {
             <img src={Logo} alt="logo" className="NavImg" />
           </Link>
           <div className="ProfileContent">
-            <img
-              src={`../../../Assets/Images/${user.imageName}`}
-              alt=""
-              className="profileNavbar"
-            />
+            {user && (
+              <img
+                src={`uploads/${user.imageName}`}
+                alt=""
+                className="profileNavbar"
+              />
+            )}
+
             <div class="dropdown">
               <button class="dropbtn">
                 <BiCaretDown />

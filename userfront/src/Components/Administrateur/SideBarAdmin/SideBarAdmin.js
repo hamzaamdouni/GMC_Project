@@ -33,29 +33,6 @@ const SideBarAdmin = ({ admin, setIsAffiche }) => {
           <div className="SideBarAdminBodyBtn">
             <button
               onClick={() => {
-                setIsAffiche("Administrateur");
-              }}
-            >
-              {" "}
-              <MdAdminPanelSettings size={20} className="SideBarIcon" />
-              <span>Administrateur</span>
-            </button>
-          </div>
-
-          <div className="SideBarAdminBodyBtn">
-            <button
-              onClick={() => {
-                setIsAffiche("Reclamation");
-              }}
-            >
-              <MdMessage size={20} className="SideBarIcon" />{" "}
-              <span>Reclamation</span>
-            </button>
-          </div>
-
-          <div className="SideBarAdminBodyBtn">
-            <button
-              onClick={() => {
                 setIsAffiche("Services");
               }}
             >
@@ -64,6 +41,17 @@ const SideBarAdmin = ({ admin, setIsAffiche }) => {
                 className="SideBarIcon"
               />
               <span>Services</span>
+            </button>
+          </div>
+          <div className="SideBarAdminBodyBtn">
+            <button
+              onClick={() => {
+                setIsAffiche("Category");
+              }}
+            >
+              {" "}
+              <MdAdminPanelSettings size={20} className="SideBarIcon" />
+              <span>Category</span>
             </button>
           </div>
 
@@ -75,6 +63,16 @@ const SideBarAdmin = ({ admin, setIsAffiche }) => {
             >
               <MdSupervisedUserCircle size={20} className="SideBarIcon" />
               <span>Agents</span>
+            </button>
+          </div>
+          <div className="SideBarAdminBodyBtn">
+            <button
+              onClick={() => {
+                setIsAffiche("Reclamation");
+              }}
+            >
+              <MdMessage size={20} className="SideBarIcon" />{" "}
+              <span>Reclamation</span>
             </button>
           </div>
         </div>

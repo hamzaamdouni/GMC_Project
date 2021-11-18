@@ -116,7 +116,6 @@ exports.getOneAgent = async (request, response) => {
       .populate("id_agent")
       .populate("id_service")
       .populate("id_category");
-    console.log(OneAgent);
     response.send({ msg: "get one agent", OneAgent });
   } catch (error) {
     console.log(error);
@@ -192,7 +191,9 @@ exports.GetComments = async (request, response) => {
     const token = request.headers["authorization"];
     const decoded = jwt.verify(token, process.env.SECRET_KEY);
     const { _id } = decoded;
-    const findcomment = await comment.find({ id_user: _id });
+    const findcomment = await comment
+      .find({ id_user: _id })
+      .populate("id_agent");
     response.send({ msg: "Get all comments ", findcomment });
   } catch (error) {
     response.status(400).send({ msg: "can not send ", error });

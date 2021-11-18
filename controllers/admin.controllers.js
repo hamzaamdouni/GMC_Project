@@ -162,13 +162,19 @@ exports.deleteUserByAdmin = async (request, response) => {
 // Add a category (admin)
 exports.addCategory = async (request, response) => {
   try {
-    const { id } = request.params;
     const { nom } = request.body;
+    const { Oneservice } = request.body;
+    console.log("Bodyyyy : ", request.body);
     const findCategory = await category.findOne({ nom });
     if (findCategory) {
       response.status(400).send({ errors: [{ msg: "Category existe" }] });
     } else {
-      const newCategory = new category({ ...request.body, id_service: id });
+      const findService = await service.findOne({ Oneservice });
+      console.log("find service  : ", findService);
+      const newCategory = new category({
+        ...request.body,
+        id_service: findService._id,
+      });
       await newCategory.save();
       response.send({ msg: "register seccess", Category: newCategory });
     }
@@ -232,7 +238,10 @@ exports.addService = async (request, response) => {
     if (findService) {
       response.status(400).send({ errors: [{ msg: "Service existe" }] });
     } else {
-      const newService = new service({ ...request.body });
+      const newService = new service({
+        ...request.body,
+        imageName: request.file.filename,
+      });
       await newService.save();
       response.send({ msg: "register seccess", Service: newService });
     }
@@ -267,8 +276,8 @@ exports.deleteService = async (request, response) => {
     const findService = await service.findOne({ _id: id });
     if (findService) {
       let deleteService = await service.deleteOne({ _id: id });
-      response.send({ msg: "deleted succ" });
       let deleteCategory = await category.deleteMany({ id_service: id });
+      response.send({ msg: "deleted succ" });
     } else {
       response.status(400).send({ errors: [{ msg: "Service n'existe pas" }] });
     }

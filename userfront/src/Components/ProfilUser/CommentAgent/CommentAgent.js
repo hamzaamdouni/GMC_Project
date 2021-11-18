@@ -2,12 +2,10 @@ import React from "react";
 import "./CommentAgent.css";
 import CommentAgentBody from "./CommentAgentBody";
 
-const CommentAgent = ({ commentsAgent }) => {
-  const Verified = commentsAgent.filter(
-    (comment) => comment.etat === "Verified"
-  );
+const CommentAgent = ({ comments, isActive }) => {
+  const Verified = comments.filter((comment) => comment.etat === "Verified");
 
-  const NotVerified = commentsAgent.filter(
+  const NotVerified = comments.filter(
     (comment) => comment.etat === "NotVerified"
   );
   return (
@@ -32,8 +30,8 @@ const CommentAgent = ({ commentsAgent }) => {
       </div>
 
       <div className="CommentAgentBody">
-        {commentsAgent.map((comment) => (
-          <CommentAgentBody comment={comment} />
+        {comments.map((comment) => (
+          <CommentAgentBody comment={comment} isActive={isActive} />
         ))}
       </div>
     </div>

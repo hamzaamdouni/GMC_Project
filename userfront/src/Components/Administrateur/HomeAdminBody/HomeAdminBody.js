@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 import Agents from "./Agents/Agents";
 import "./HomeAdminBody.css";
 import Reclamation from "./Reclamation/Reclamation";
+import GererCategory from "./Services/GererCategory/GererCategory";
+import GererService from "./Services/GererService/GererService";
 
 const HomeAdminBody = ({ isAffiche }) => {
   const reclamations = useSelector(
@@ -17,7 +19,7 @@ const HomeAdminBody = ({ isAffiche }) => {
   console.log(ReclamationNotVerified);
   return (
     <div className="HomeAdminBodyContainer">
-      {isAffiche === "Administrateur" && null}
+      {isAffiche === "Category" && <GererCategory />}
       {isAffiche === "Reclamation" && (
         <>
           {ReclamationNotVerified.length !== 0 && (
@@ -36,7 +38,8 @@ const HomeAdminBody = ({ isAffiche }) => {
           </div>
         </>
       )}
-      {isAffiche === "Services" && null}
+
+      {isAffiche === "Services" && <GererService />}
       {isAffiche === "Agents" && <Agents />}
     </div>
   );

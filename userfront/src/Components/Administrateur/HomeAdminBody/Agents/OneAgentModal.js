@@ -37,8 +37,11 @@ const OneAgentModal = ({ agentToShow, setIsOpen }) => {
     <div className="OneAgentModalContainer">
       <div className="OneAgentModalWrapper">
         <div className="OneAgentModalImage">
-          <img src="" alt="" />
-          <span>
+          <div className="OneAgentModalImageContainer">
+            <img src={`../uploads/${agentToShow.id_agent.imageName}`} alt="" />
+          </div>
+
+          <span className="OneAgentModalService">
             {agentToShow.id_service.nom} - {agentToShow.id_category.nom}
           </span>
           <span>{agentToShow.id_agent.adress}</span>

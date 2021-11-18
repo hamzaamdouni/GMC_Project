@@ -25,12 +25,7 @@ const router = express.Router();
 /* * * * * * * * * * * * * * * * * * *  *     Register     * * * * * * * * * * * * * * * * * * *  */
 
 // Register user
-router.post(
-  "/register",
-
-  upload,
-  RegisterUser
-);
+router.post("/register", upload, RegisterUser);
 // Login user
 router.post("/login", LoginUserValidation(), Uservalidation, LoginUser);
 

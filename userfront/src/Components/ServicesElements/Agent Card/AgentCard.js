@@ -13,14 +13,14 @@ const AgentCard = ({ oneAgent, setModalIsOpen, setIdagent }) => {
     <div className="container">
       <div className="cover-photo">
         <img
-          src={`../../../Assets/Images/${oneAgent.id_agent.imageName}`}
+          src={`uploads/${oneAgent.id_agent.imageName}`}
           alt="coverphoto"
           className="profile"
           // style={
           //   "background-mage: `../../../Assets/Images/${oneAgent.id_agent.imageName}`"
           // }
           style={{
-            backgroundImage: `url(../../../Assets/Images/${oneAgent.id_agent.imageName})`,
+            backgroundImage: `url(uploads/${oneAgent.id_agent.imageName})`,
           }}
         />
       </div>

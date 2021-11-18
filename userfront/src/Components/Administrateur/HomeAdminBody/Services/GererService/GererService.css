@@ -1,0 +1,124 @@
+.addServices {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.addServicesContainer {
+  width: 96%;
+  height: 250px;
+  display: flex;
+  background-color: #0a0a0a;
+  margin: 3% 2%;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px -10px rgba(0, 0, 0, 0.75);
+  padding: 2%;
+}
+
+.addServicesImageContainer {
+  width: 50%;
+  padding: 2%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.addServicesImageContainer img {
+  height: 200px;
+}
+.addServicesFormContainer {
+  width: 50%;
+  padding: 2%;
+  display: flex;
+  align-items: center;
+}
+.addServicesFormContent {
+  display: flex;
+  margin-bottom: 10px;
+}
+.addServicesFormContent .label {
+  width: 100px;
+}
+
+.addServicesFormContent .Nom {
+  width: 300px;
+  height: 30px;
+  background-color: #131313;
+  border: 1px solid #000;
+  border-radius: 10px;
+  padding: 2%;
+  color: #fff;
+}
+
+.addServicesFormContent .description {
+  width: 300px;
+  height: 70px;
+  background-color: #131313;
+  border: 1px solid #000;
+  border-radius: 10px;
+  padding: 2%;
+  color: #fff;
+}
+
+.addServicesFormContent .image {
+  width: 300px;
+  background-color: #131313;
+  border: 1px solid #000;
+  border-radius: 10px;
+}
+
+.addServicesFormContent .Submit {
+  width: 300px;
+  margin-top: 3%;
+  padding: 2%;
+  background-color: transparent;
+  border-radius: 10px;
+  background-color: #131313;
+  border: 1px solid #000;
+  color: #efa51f;
+}
+
+.ServicesContainer {
+  width: 95%;
+}
+.OneServiceContainer img {
+  width: 70px;
+}
+
+.OneServiceCelluleImage {
+  width: 150px;
+}
+.OneServiceCelluleIcon {
+  width: 100px;
+  color: blue;
+}
+
+.OneServiceCelluleIconDelete {
+  width: 100px;
+  color: red;
+}
+
+.OneServiceCelluleNom {
+  width: 300px;
+}
+
+.OneServiceCelluleNom input {
+  width: 90%;
+  height: 60px;
+  background-color: #0a0a0a;
+  border: 1px solid #000;
+  color: #fff;
+  padding: 2%;
+}
+
+.OneServiceCelluleTextArea textarea {
+  width: 90%;
+  height: 60px;
+  background-color: #0a0a0a;
+  border: 1px solid #000;
+  color: #fff;
+  padding: 2%;
+}
+
+.OneServiceContainer td {
+  font-size: 16px;
+}

@@ -305,6 +305,20 @@ export const editdemandeUser = (iddemande, editDemande) => async (dispatch) => {
     dispatch({ type: FAIL_DEMANDE, payload: error.response.data });
   }
 };
+
+export const editcommentUser = (idcomment, editComment) => async (dispatch) => {
+  const config = {
+    headers: {
+      authorization: localStorage.getItem("token"),
+    },
+  };
+  try {
+    await axios.put(`/api/user/comment/${idcomment}`, editComment, config);
+    dispatch(getcommentUser());
+  } catch (error) {
+    dispatch({ type: FAIL_DEMANDE, payload: error.response.data });
+  }
+};
 /******************************************************** agent  ********************************************************/
 export const registerAgent = (addAgent, history) => async (dispatch) => {
   const config = {

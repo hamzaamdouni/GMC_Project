@@ -1,5 +1,7 @@
 import axios from "axios";
 import {
+  ADD_CATEGORY,
+  ADD_SERVICE,
   CURRENT_ADMIN,
   FAIL_ADMIN,
   FAIL_AGENT,
@@ -118,7 +120,7 @@ export const getServices = () => async (dispatch) => {
   }
 };
 
-export const editService = (id, editService) => async (dispatch) => {
+export const editServices = (id, editService) => async (dispatch) => {
   const config = {
     headers: {
       authorization: localStorage.getItem("token"),
@@ -140,6 +142,22 @@ export const deleteServices = (id) => async (dispatch) => {
   };
   try {
     await axios.delete(`/api/admin/service/${id}`, config);
+    dispatch(getServices());
+  } catch (error) {
+    dispatch({ type: FAIL_SERVICE, payload: error.response.data });
+  }
+};
+
+export const addNewService = (newService) => async (dispatch) => {
+  const config = {
+    headers: {
+      authorization: localStorage.getItem("token"),
+    },
+  };
+  dispatch({ type: LOAD_SERVICE });
+  try {
+    let { data } = await axios.post("/api/admin/service", newService, config);
+    dispatch({ type: ADD_SERVICE, payload: data });
     dispatch(getServices());
   } catch (error) {
     dispatch({ type: FAIL_SERVICE, payload: error.response.data });
@@ -183,6 +201,22 @@ export const deleteCategorys = (id) => async (dispatch) => {
   };
   try {
     await axios.delete(`/api/admin/category/${id}`, config);
+    dispatch(getCategorys());
+  } catch (error) {
+    dispatch({ type: FAIL_CATEGORY, payload: error.response.data });
+  }
+};
+
+export const addNewCategory = (newCategory) => async (dispatch) => {
+  const config = {
+    headers: {
+      authorization: localStorage.getItem("token"),
+    },
+  };
+  dispatch({ type: LOAD_CATEGORY });
+  try {
+    let { data } = await axios.post("/api/admin/category", newCategory, config);
+    dispatch({ type: ADD_CATEGORY, payload: data });
     dispatch(getCategorys());
   } catch (error) {
     dispatch({ type: FAIL_CATEGORY, payload: error.response.data });

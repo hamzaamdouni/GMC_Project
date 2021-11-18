@@ -62,6 +62,9 @@
 .CommentAgentIconVerified {
   color: blue;
 }
+.CommentAgentIconNotVerified {
+  color: red;
+}
 
 .CommentAgentBodyContentBody {
   width: 100%;

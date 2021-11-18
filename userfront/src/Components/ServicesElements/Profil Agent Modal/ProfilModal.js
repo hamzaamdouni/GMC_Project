@@ -114,11 +114,13 @@ const ProfilModal = ({ setModalIsOpen, idagent }) => {
           <div className="ModalInfoContainer">
             <div className="ModalInfContent">
               <div className="ModalImageCentent">
-                <img
-                  src={`../../../Assets/Images/${oneagent.id_agent.imageName}`}
-                  alt="Agent"
-                  className="ModalProfilImg"
-                />
+                {oneagent && (
+                  <img
+                    src={`uploads/${oneagent.id_agent.imageName}`}
+                    alt="Agent"
+                    className="ModalProfilImg"
+                  />
+                )}
               </div>
 
               <div className="ModalInfNom">

@@ -12,6 +12,7 @@
   height: 160px;
   width: 100%;
   border-radius: 5px 5px 0 0;
+  background-image: url("../../../Assets/User/Untitled-1.jpg");
 }
 .profile {
   height: 120px;

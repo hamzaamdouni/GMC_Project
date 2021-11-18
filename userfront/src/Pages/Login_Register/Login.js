@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { login } from "../../JS/actions/visiteur";
@@ -54,16 +54,13 @@ const Login = () => {
                 <input
                   type="email"
                   placeholder="Enter votre email"
-                  required
                   name="email"
-                  // onInput={handleUser}
-                  // value={user.email}
                   {...register("email", {
                     required: true,
-                    pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
+                    pattern: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g,
                   })}
                 />
-                {errors.email && <span>It must be an email</span>}
+                {errors.email && <span>entrer un valide email</span>}
 
                 <div className="underline" />
               </div>
@@ -73,11 +70,9 @@ const Login = () => {
                   placeholder="Enter votre mot de passe"
                   required
                   name="password"
-                  // onInput={handleUser}
-                  // value={user.password}
                   {...register("password", { required: true })}
                 />
-                {errors.password && <span>This field is required</span>}
+                {errors.password && <span>Entrer votre mot de passe</span>}
 
                 <div className="underline" />
               </div>

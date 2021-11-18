@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { register } from "../../JS/actions/visiteur";
-import { useForm } from "react-hook-form";
 
 import "./Register.css";
 import Video from "../../Assets/Visiteur/video.mp4";
@@ -30,7 +29,6 @@ const Register = () => {
     if (user.role === "") {
       alert("Choisir un role");
     } else {
-      //  const user = watch();
       const formData = new FormData();
       formData.append("nom", user.nom);
       formData.append("prenom", user.prenom);
@@ -40,7 +38,6 @@ const Register = () => {
       formData.append("password", user.password);
       formData.append("role", user.role);
       formData.append("imageName", user.imageName);
-      console.log("Nom image est ", user.imageName);
       dispatch(register(formData));
       setUser({
         nom: "",

@@ -4,7 +4,7 @@ const multer = require("multer");
 
 const storage = multer.diskStorage({
   destination: (request, file, cb) => {
-    cb(null, "./userfront/src/Assets/Images");
+    cb(null, "./userfront/public/uploads");
   },
   filename: (request, file, cb) => {
     const fileName = `${Date.now()}_${file.originalname}`;

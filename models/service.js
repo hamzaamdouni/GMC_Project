@@ -7,6 +7,7 @@ const serviceSchema = new Schema({
     required: true,
   },
   description: String,
+  imageName: String,
 });
 
 module.exports = Service = model("service", serviceSchema);

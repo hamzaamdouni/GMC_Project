@@ -19,6 +19,8 @@ import {
   LOAD_SERVICE,
   LOGIN_ADMIN,
   LOGOUT_ADMIN,
+  ADD_SERVICE,
+  ADD_CATEGORY,
 } from "../constants/administrateur";
 
 const initialState = {
@@ -32,9 +34,11 @@ const initialState = {
   isloadReaclamation: false,
   /*--------------------------------- Services ---------------------------------*/
   services: [],
+  service: {},
   isloadService: false,
   /*--------------------------------- Categorys ---------------------------------*/
   categorys: [],
+  category: {},
   isloadCategory: false,
   /*---------------------------------  Agents ---------------------------------*/
   agents: [],
@@ -94,6 +98,8 @@ const AdministrateurReducer = (state = initialState, { type, payload }) => {
         services: payload.findService,
         isloadService: false,
       };
+    case ADD_SERVICE:
+      return { ...state, service: payload.service, isloadService: false };
     case FAIL_SERVICE:
       return { ...state, errors: payload, isloadService: false };
     /*--------------------------------- Categorys ---------------------------------*/
@@ -105,6 +111,8 @@ const AdministrateurReducer = (state = initialState, { type, payload }) => {
         categorys: payload.findCategory,
         isloadCategory: false,
       };
+    case ADD_CATEGORY:
+      return { ...state, category: payload.category, isloadCategory: false };
     case FAIL_CATEGORY:
       return { ...state, errors: payload, isloadCategory: false };
     /*---------------------------------  Agents ---------------------------------*/

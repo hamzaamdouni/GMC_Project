@@ -6,7 +6,7 @@ const app = express();
 
 connectDB();
 
-app.use(express.static("./userfront/src/Assets/Images"));
+// app.use(express.static("./userfront/public/uploads"));
 app.use(express.json());
 
 app.use("/api/admin", require("./router/admin"));

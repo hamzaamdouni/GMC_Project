@@ -60,7 +60,7 @@ const GererCategory = () => {
               <div className="label">
                 <label> Service </label>
               </div>
-              <select name="Oneservice" onInput={handleCategory}>
+              <select name="Oneservice" onChange={handleCategory}>
                 {services.map((el) => (
                   <option value={el.nom}>{el.nom}</option>
                 ))}

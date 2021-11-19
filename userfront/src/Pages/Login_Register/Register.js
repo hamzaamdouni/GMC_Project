@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { register } from "../../JS/actions/visiteur";
+import { Link as LinkR } from "react-router-dom";
 
 import "./Register.css";
 import Video from "../../Assets/Visiteur/video.mp4";
@@ -171,6 +172,13 @@ const Register = () => {
                 <input type="submit" defaultValue="Register" className="btn" />
               </div>
             </form>
+            <div className="option">
+              <span>Vous avez un compte ? </span>
+              <LinkR to="/login" className="toregister">
+                {" "}
+                S'identifier
+              </LinkR>
+            </div>
           </div>
         </div>
       </div>

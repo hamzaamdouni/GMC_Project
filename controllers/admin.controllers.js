@@ -169,7 +169,7 @@ exports.addCategory = async (request, response) => {
     if (findCategory) {
       response.status(400).send({ errors: [{ msg: "Category existe" }] });
     } else {
-      const findService = await service.findOne({ Oneservice });
+      const findService = await service.findOne({ nom: Oneservice });
       console.log("find service  : ", findService);
       const newCategory = new category({
         ...request.body,

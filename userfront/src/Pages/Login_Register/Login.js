@@ -86,9 +86,10 @@ const Login = () => {
               </div>
             </form>
             <div className="option">
+              <span>Vous n'ete pas inscrit? </span>
               <LinkR to="/register" className="toregister">
                 {" "}
-                ou incrivez vous
+                S'inscrire
               </LinkR>
             </div>
           </div>

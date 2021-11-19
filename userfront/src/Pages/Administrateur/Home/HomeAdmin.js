@@ -17,13 +17,14 @@ const HomeAdmin = () => {
   const dispatch = useDispatch();
   const [isAffiche, setIsAffiche] = useState();
 
+  // useEffect(() => {
+
+  // }, [dispatch]);
+
   useEffect(() => {
     dispatch(currentAdmin());
     dispatch(getServices());
     dispatch(getUsers());
-  }, [dispatch]);
-
-  useEffect(() => {
     dispatch(getReclamations());
     dispatch(getCategorys());
     dispatch(getAgents());

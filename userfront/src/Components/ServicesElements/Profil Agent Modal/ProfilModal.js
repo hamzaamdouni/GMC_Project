@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./ProfilModal.css";
-import ProfilImage from "../../../Assets/User/profil.jpg";
 import DemandeImage from "../../../Assets/User/sendrequest.svg";
 
 import { AiFillCloseCircle } from "react-icons/ai";
@@ -226,7 +225,7 @@ const ProfilModal = ({ setModalIsOpen, idagent }) => {
                   verifiedComment.map((onecomment) => (
                     <div className="ModalUserCommentWrapper">
                       <img
-                        src={ProfilImage}
+                        src={`uploads/${onecomment.id_user.imageName}`}
                         alt="Commenter"
                         className="CommainterImage"
                       />

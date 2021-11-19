@@ -82,7 +82,7 @@
 
 .OnecategoryContainer {
   width: 200px;
-  height: 115px;
+  height: 280px;
   background-color: #0a0a0a;
   margin: 3% 1%;
   border-radius: 15px;
@@ -124,4 +124,20 @@
   border: none;
   padding: 3px;
   margin-bottom: 8px;
+}
+
+.OnecategoryContainerImage {
+  height: 150px;
+  width: 150px;
+  background-color: #101010;
+  margin-bottom: 15px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+}
+.OnecategoryContainerImage img {
+  height: 85%;
+  width: 85%;
 }

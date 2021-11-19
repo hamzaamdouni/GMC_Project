@@ -30,6 +30,9 @@ const GererOneCategory = ({ category }) => {
   };
   return (
     <div className="OnecategoryContainer">
+      <div className="OnecategoryContainerImage">
+        <img src={`../uploads/${category.id_service.imageName}`} alt="" />
+      </div>
       {isEdit ? (
         <input
           className="Nom"

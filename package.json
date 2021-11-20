@@ -4,9 +4,6 @@
   "description": "Projet GMC",
   "main": "server.js",
   "scripts": {
-    "front": "cd userfront && npm start",
-    "back": "nodemon server",
-    "dev": "concurrently \"npm run front\" \"npm run back\"",
     "heroku_postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix userfront && npm run build --prefix userfront"
   },
   "author": "Hamza Amdouni",

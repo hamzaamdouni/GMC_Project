@@ -9,6 +9,8 @@ connectDB();
 // app.use(express.static("./userfront/public/uploads"));
 app.use(express.json());
 
+
+
 app.use("/api/admin", require("./router/admin"));
 app.use("/api/agent", require("./router/agent"));
 app.use("/api/user", require("./router/user"));
@@ -22,6 +24,24 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.resolve(__dirname, "userfront", "build", "index.html"));
   });
 } 
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  next();
+});
+app.get('*', (req, res) => {
+  request(
+    { url: 'https://taktak-service.herokuapp.com/' },
+    (error, response, body) => {
+      if (error || response.statusCode !== 200) {
+        return res.status(500).json({ type: 'error', message: err.message });
+      }
+
+      res.json(JSON.parse(body));
+    }
+  )
+});
+
+
   const PORT = process.env.PORT;
   app.listen(PORT, (error) => {
     error
